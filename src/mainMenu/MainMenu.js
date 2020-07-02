@@ -53,6 +53,7 @@ function MainMenu(props) {
             className={styles.lakeAccordion}
             lakes={props.lakes}
             selectLake={selectLake}
+            currentIndex={lakeSelected}
           ></LakeAccordion>
           <LakeStats
             className={styles.lakeStats}

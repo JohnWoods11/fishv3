@@ -9,17 +9,29 @@ function LakeStats(props) {
       {props.lakeIndex === null ? (
         <div>Select a lake to fish</div>
       ) : (
-        <div>
+        <div className={styles.container}>
           {" "}
-          {props.lakes[props.lakeIndex].name}
-          <Button
-            variant="success"
-            onClick={() => {
-              props.fishLake();
-            }}
-          >
-            Fish
-          </Button>
+          <div className={styles.lakeInfoContainer}>
+            <div className={styles.infoHeader}>
+              {props.lakes[props.lakeIndex].name}
+            </div>
+            <div className={styles.infoBody}>Info about this lake</div>
+          </div>
+          <div className={styles.buttonContainer}>
+            {" "}
+            <Button className={styles.button} variant="info">
+              Go
+            </Button>
+            <Button
+              className={styles.button}
+              variant="success"
+              onClick={() => {
+                props.fishLake();
+              }}
+            >
+              Fish
+            </Button>
+          </div>{" "}
         </div>
       )}
     </div>

@@ -1,5 +1,34 @@
 .container {
-  width: 50%;
+  width: 50vw;
   height: 100%;
-  background-color: brown;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.button {
+  width: 40vw;
+}
+
+.lakeInfoContainer {
+  width: 50vw;
+  padding-left: 2vw;
+  padding-right: 2vw;
+  box-sizing: border-box;
+}
+
+.infoHeader {
+  text-align: center;
+  font-size: large;
+  font-weight: 500;
+}
+
+.infoBody {
+}
+
+.buttonContainer {
+  display: flex;
+  flex-direction: column;
 }
