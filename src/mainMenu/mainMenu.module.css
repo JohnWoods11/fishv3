@@ -1,0 +1,79 @@
+.menuContainer {
+  height: 87vh;
+  width: 100vw;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+  flex-wrap: wrap;
+}
+
+.fishingDashboard {
+  height: 50vh;
+  width: 100vw;
+  display: flex;
+  flex-direction: row;
+}
+.fullScreenFishingDash {
+  height: 80vh;
+  width: 100vw;
+  display: flex;
+  flex-direction: row;
+}
+
+.sessionDashboard {
+  height: 50vh;
+  width: 100vw;
+}
+
+.fullScreenSessionDash {
+  height: 80vh;
+  width: 100vw;
+}
+
+.dashboardExtender {
+  height: 4vh;
+  width: 100vw;
+  background-color: gray;
+}
+.optionButtons {
+  height: 33vh;
+  width: 100vw;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+}
+
+.buttonContainer {
+  width: 100vw;
+  height: 15vh;
+  display: flex;
+  flex-direction: row;
+  border: solid;
+  border-color: lightblue;
+  justify-content: space-between;
+}
+
+.buttonInfoHeader {
+  font-size: medium;
+  font-weight: bold;
+}
+
+.buttonInfo {
+  font-size: medium;
+  font-weight: lighter;
+  overflow: hidden;
+}
+
+.buttonInfoContainer {
+  display: flex;
+  flex-direction: column;
+  width: 85vw;
+  height: 15vh;
+  justify-content: space-around;
+}
+
+.button {
+  width: 15vw;
+  height: 14vh;
+}

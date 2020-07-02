@@ -1,0 +1,17 @@
+.infoHeader {
+  font-size: large;
+  font-weight: bold;
+}
+
+.infoBody {
+  font-weight: lighter;
+  font-size: medium;
+}
+
+.variableSelectors {
+  width: 100vw;
+
+  display: flex;
+  flex-direction: row;
+  justify-content: space-evenly;
+}
