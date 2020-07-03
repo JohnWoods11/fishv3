@@ -28,7 +28,28 @@
 .infoBody {
 }
 
+.timeData {
+  display: flex;
+  background-color: lightblue;
+  height: 10vh;
+  justify-content: center;
+  align-items: center;
+}
+
 .buttonContainer {
+  height: 20vh;
+  width: 50vw;
   display: flex;
   flex-direction: column;
+  justify-content: space-evenly;
+  align-items: center;
+}
+
+.buttonContainerFullScreen {
+  height: 10vh;
+  width: 100vw;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-evenly;
+  align-items: center;
 }

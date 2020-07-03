@@ -1,7 +1,6 @@
 import React from "react";
 import styles from "./lakeStats.module.css";
 import Button from "react-bootstrap/Button";
-import { Link } from "react-router-dom";
 
 function LakeStats(props) {
   return (
@@ -15,23 +14,31 @@ function LakeStats(props) {
             <div className={styles.infoHeader}>
               {props.lakes[props.lakeIndex].name}
             </div>
-            <div className={styles.infoBody}>Info about this lake</div>
+            <div className={styles.infoBody}>Catches: </div>
+            <div className={styles.infoBody}>
+              Casts: {props.lakes[props.lakeIndex].lakes[0].castIndexes.length}
+            </div>
+            <div className={styles.infoBody}>Time Fished: </div>
+            <div className={styles.infoBody}>Biggest Catch: </div>
+            <div className={styles.timeData}>to do</div>
           </div>
-          <div className={styles.buttonContainer}>
-            {" "}
-            <Button className={styles.button} variant="info">
-              Go
-            </Button>
-            <Button
-              className={styles.button}
-              variant="success"
-              onClick={() => {
-                props.fishLake();
-              }}
-            >
-              Fish
-            </Button>
-          </div>{" "}
+          {props.isFullScreen ? null : (
+            <div className={styles.buttonContainer}>
+              {" "}
+              <Button className={styles.button} variant="info">
+                Lake
+              </Button>
+              <Button
+                className={styles.button}
+                variant="success"
+                onClick={() => {
+                  props.fishLake();
+                }}
+              >
+                Fish
+              </Button>
+            </div>
+          )}
         </div>
       )}
     </div>

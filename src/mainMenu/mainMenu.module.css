@@ -14,7 +14,7 @@
   flex-direction: row;
 }
 .fullScreenFishingDash {
-  height: 83vh;
+  height: 40vh;
   width: 100vw;
   display: flex;
   flex-direction: row;
@@ -26,7 +26,12 @@
 }
 
 .fullScreenSessionDash {
-  height: 80vh;
+  height: 83vh;
+  width: 100vw;
+}
+
+.extraStats {
+  height: 43vh;
   width: 100vw;
 }
 

@@ -5,11 +5,12 @@ import LakeStats from "./LakeStats";
 import Button from "react-bootstrap/Button";
 import { Link } from "react-router-dom";
 import SessionDash from "./SessionDash";
+import ExtraLakeStats from "./ExtraLakeStats";
 
 function MainMenu(props) {
   const [lakeSelected, setLakeSelected] = useState(null);
   const [isFishing, setIsFishing] = useState(false);
-  const [dashIsFullscreen, setDashIsFullscreen] = useState(false);
+  const [dashIsFullScreen, setDashIsFullScreen] = useState(false);
 
   const fishLake = (index) => {
     setIsFishing(true);
@@ -30,12 +31,13 @@ function MainMenu(props) {
       {isFishing ? (
         <div
           className={
-            dashIsFullscreen
+            dashIsFullScreen
               ? styles.fullScreenSessionDash
               : styles.sessionDashboard
           }
         >
           <SessionDash
+            isFullScreen={dashIsFullScreen}
             lakes={props.lakes}
             lakeIndex={lakeSelected}
             resetIsFishing={resetIsFishing}
@@ -44,7 +46,7 @@ function MainMenu(props) {
       ) : (
         <div
           className={
-            dashIsFullscreen
+            dashIsFullScreen
               ? styles.fullScreenFishingDash
               : styles.fishingDashboard
           }
@@ -57,17 +59,26 @@ function MainMenu(props) {
           ></LakeAccordion>
           <LakeStats
             className={styles.lakeStats}
+            isFullScreen={dashIsFullScreen}
             lakes={props.lakes}
             lakeIndex={lakeSelected}
             fishLake={fishLake}
           ></LakeStats>
         </div>
       )}
+      {dashIsFullScreen && !isFishing ? (
+        <div className={styles.extraStats}>
+          <ExtraLakeStats
+            lakeIndex={lakeSelected}
+            fishLake={fishLake}
+          ></ExtraLakeStats>
+        </div>
+      ) : null}
       <div
         className={styles.dashboardExtender}
-        onClick={() => setDashIsFullscreen(!dashIsFullscreen)}
+        onClick={() => setDashIsFullScreen(!dashIsFullScreen)}
       ></div>
-      {!dashIsFullscreen ? (
+      {!dashIsFullScreen ? (
         <div className={styles.optionButtons}>
           <div className={styles.buttonContainer}>
             <div className={styles.buttonInfoContainer}>
