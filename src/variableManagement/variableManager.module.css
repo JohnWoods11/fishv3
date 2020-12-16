@@ -1,0 +1,54 @@
+.container {
+  height: 65vh;
+  width: 100vw;
+}
+
+.card {
+  display: flex;
+  justify-content: center;
+}
+
+.variableHeader {
+  height: 4vh;
+
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  font-size: large;
+  font-weight: bold;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+.variableBody {
+  height: 5vh;
+
+  display: flex;
+  flex-direction: row;
+  justify-content: space-evenly;
+  align-items: center;
+}
+
+.buttons {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+
+.button {
+  width: 15vw;
+  height: 10vw;
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  font-size: x-small;
+}
+.variable {
+  text-decoration: none;
+  color: black;
+}
+
+.variable:link {
+  text-decoration: none;
+}

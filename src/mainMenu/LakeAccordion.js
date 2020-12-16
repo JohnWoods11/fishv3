@@ -4,6 +4,13 @@ import Accordion from "react-bootstrap/Accordion";
 import Card from "react-bootstrap/Card";
 
 function LakeAccordion(props) {
+  const addLake = () => {
+    let newLakeName = prompt("Enter the new lakes name:");
+    if (newLakeName) {
+      props.addLake(newLakeName);
+    }
+  };
+
   return (
     <div className={styles.container}>
       <Accordion className={styles.accordian}>
@@ -22,10 +29,7 @@ function LakeAccordion(props) {
             {lake.name}
           </Card>
         ))}
-        <Card
-          className={styles.lakeItem}
-          onClick={() => prompt("Enter the new lakes name:")}
-        >
+        <Card className={styles.lakeItem} onClick={addLake}>
           New Lake
         </Card>
       </Accordion>

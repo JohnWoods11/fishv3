@@ -1,0 +1,125 @@
+.container {
+  height: 90vh;
+  width: 100vw;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.variableHeader {
+  height: 7vh;
+  font-size: x-large;
+  font-weight: bold;
+  text-align: center;
+  background-color: lightblue;
+
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.variableName {
+  display: flex;
+  height: 7vh;
+  width: 70vw;
+  border-left: solid;
+  border-right: solid;
+  border-color: white;
+
+  align-items: center;
+  justify-content: center;
+}
+
+.navButton {
+  display: flex;
+  width: 15vw;
+  align-items: center;
+  justify-content: center;
+  font-size: xx-large;
+}
+
+.basicVarInfo {
+  display: flex;
+  flex-direction: row;
+}
+
+.spaceHolderOne {
+  width: 55vw;
+  height: 20vh;
+}
+
+.basicInfo {
+  font-size: small;
+}
+
+.timeInfo {
+  height: 25vh;
+  width: 100vw;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+}
+.dailyTime {
+  height: 10vh;
+  width: 100vw;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-evenly;
+  align-items: center;
+}
+
+.dailyYScale {
+  height: 10vh;
+  width: 10vw;
+  display: flex;
+  flex-direction: column;
+
+  font-size: xx-small;
+  text-align: center;
+  justify-content: space-between;
+}
+
+.dailyXScale {
+  width: 90vw;
+  float: right;
+  display: flex;
+  flex-direction: row;
+  height: 2vh;
+
+  font-size: xx-small;
+  justify-content: space-around;
+}
+
+.yearlyTime {
+  height: 10vh;
+  width: 100vw;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-evenly;
+  align-items: center;
+}
+
+.castHistory {
+  height: 30vh;
+  width: 100vw;
+}
+
+.monthXScale {
+  width: 91vw;
+  float: right;
+  display: flex;
+  flex-direction: row;
+  height: 2vh;
+
+  font-size: xx-small;
+  justify-content: space-around;
+}
+.month {
+  width: 7.5vw;
+  text-align: center;
+  font-size: xx-small;
+}

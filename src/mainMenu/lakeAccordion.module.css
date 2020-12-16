@@ -1,11 +1,17 @@
 .container {
   width: 50%;
   height: 100%;
-  overflow: hidden;
+  overflow: scroll;
+  -ms-overflow-style: none; /* IE and Edge */
+  scrollbar-width: none; /* Firefox */
 }
 
 .lakeItem {
   font-size: large;
   align-items: center;
   cursor: pointer;
+}
+
+.container::-webkit-scrollbar {
+  display: none;
 }

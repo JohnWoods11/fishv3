@@ -56,6 +56,7 @@ function MainMenu(props) {
             lakes={props.lakes}
             selectLake={selectLake}
             currentIndex={lakeSelected}
+            addLake={props.addLake}
           ></LakeAccordion>
           <LakeStats
             className={styles.lakeStats}
@@ -63,26 +64,34 @@ function MainMenu(props) {
             lakes={props.lakes}
             lakeIndex={lakeSelected}
             fishLake={fishLake}
+            mSToReadable={props.mSToReadable}
+            setCurrentVariable={props.setCurrentVariable}
           ></LakeStats>
         </div>
       )}
       {dashIsFullScreen && !isFishing ? (
         <div className={styles.extraStats}>
           <ExtraLakeStats
+            lakes={props.lakes}
             lakeIndex={lakeSelected}
             fishLake={fishLake}
+            setCurrentVariable={props.setCurrentVariable}
           ></ExtraLakeStats>
         </div>
       ) : null}
       <div
         className={styles.dashboardExtender}
         onClick={() => setDashIsFullScreen(!dashIsFullScreen)}
-      ></div>
+      >
+        {!dashIsFullScreen ? "Full screen" : "Exit full screen"}
+      </div>
       {!dashIsFullScreen ? (
         <div className={styles.optionButtons}>
           <div className={styles.buttonContainer}>
             <div className={styles.buttonInfoContainer}>
-              <div className={styles.buttonInfoHeader}>Manage variables</div>
+              <div className={styles.buttonInfoHeader}>
+                Manage user variables
+              </div>
               <div className={styles.buttonInfo}>
                 look up, edit and create new lakes/baits..
               </div>

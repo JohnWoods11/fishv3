@@ -1,0 +1,11 @@
+.container {
+  height: 10vh;
+  width: 90vw;
+  display: flex;
+  flex-direction: row;
+}
+
+.day {
+  display: flex;
+  flex-direction: column;
+}
