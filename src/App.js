@@ -42,7 +42,7 @@ class App extends React.Component {
     let newLakes = [...this.state.lakes];
     let newLake = {
       name: lakeName,
-      lakes: [{ name: lakeName, castIndexes: [] }],
+      lakes: [{ name: lakeName, duration: 0, catches: 0, castIndexes: [] }],
     };
     newLakes.push(newLake);
     this.setState({ lakes: newLakes });
@@ -123,6 +123,11 @@ class App extends React.Component {
     return date;
   };
 
+  mSToHours = (milliseconds) => {
+    let hours = (milliseconds/86400).toFixed();
+    return hours < 1 ? "less than 1 hour" : `${hours} hours`;
+  }
+
   render() {
     return (
       <div className={styles.app}>
@@ -194,6 +199,7 @@ class App extends React.Component {
                   prevVar={this.prevVar}
                   mSToReadable={this.mSToReadable}
                   mSToDate={this.mSToDate}
+                  mSToHours={this.mSToHours}
                 ></Variable>
               )}
             ></Route>

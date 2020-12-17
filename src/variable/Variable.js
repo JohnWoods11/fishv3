@@ -80,11 +80,12 @@ function Variable(props) {
         </div>
       </div>
       <div className={styles.basicVarInfo}>
-        <div className={styles.spaceHolderOne}></div>
+        <div className={styles.map}><div>Geolocation and aerialimage here!</div></div>
         <div className={styles.basicInfo}>
-          <div>Catches: {variable.catches}</div>
-          <div>Time cast: {props.mSToReadable(variable.duration)}</div>
-          <div>Casts: {variable.castIndexes.length}</div>
+          <div><b>Time cast:</b> {props.mSToHours(variable.duration)}</div>
+          <div><b>Casts:</b> {variable.castIndexes.length}</div>
+          <div><b>Catches:</b> {variable.catches}</div>
+          <div><b>PB:</b> {variable.heaviestCatch.weight === 0 ? "NA" : `${variable.heaviestCatch.weight} ${variable.heaviestCatch.species}`}</div>
           <div></div>
         </div>
       </div>
@@ -135,7 +136,12 @@ function Variable(props) {
           </div>
         </div>
       </div>
-      <div className={styles.castHistory}></div>
+      <div className={styles.castHistory}>
+        <div style={{backgroundColor: "blue"}}>a cast</div>
+        <div>a cast</div>
+        <div>a cast</div>
+        <div>a cast</div>
+      </div>
     </div>
   );
 }
