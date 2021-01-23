@@ -34,10 +34,10 @@ function Variable(props) {
     let catchTime = new Date();
     catchTime.setMilliseconds(reelInTime);
 
-    let reelInHour = catchTime.getHours();
-    let reelInMinute = catchTime.getMinutes();
-    let reelInDate = catchTime.getDate();
-    let reelInMonth = catchTime.getMonth();
+    let reelInHour = catchTime.getUTCHours();
+    let reelInMinute = catchTime.getUTCMinutes();
+    let reelInDate = catchTime.getUTCDate();
+    let reelInMonth = catchTime.getUTCMonth();
 
     if (props.castHistory[castIndex].catch) {
       dailyinfo[reelInHour].catches += 1;
@@ -159,6 +159,7 @@ function Variable(props) {
         <CastList
           castHistory={props.castHistory}
           castIndexes={variable.castIndexes}
+          species={props.species}
           styles={props.styles}
           lakes={props.lakes}
           baits={props.baits}

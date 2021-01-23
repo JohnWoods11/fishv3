@@ -14,12 +14,18 @@ function CastList(props) {
         <div>{props.lakes[cast.lake].name}</div>
         <div className={styles.hBox}>
           <div>{`${
-            date.getHours() < 10 ? `0${date.getHours()}` : date.getHours()
+            date.getUTCHours() < 10
+              ? `0${date.getUTCHours()}`
+              : date.getUTCHours()
           }:${
-            date.getMinutes() < 10 ? `0${date.getMinutes()}` : date.getMinutes()
+            date.getUTCMinutes() < 10
+              ? `0${date.getUTCMinutes()}`
+              : date.getUTCMinutes()
           }`}</div>
           <div>
-            {`${date.getDate()}/${date.getMonth() + 1}/${date.getFullYear()}
+            {`${date.getUTCDate()}/${
+              date.getUTCMonth() + 1
+            }/${date.getUTCFullYear()}
           `}
           </div>{" "}
         </div>
@@ -29,6 +35,7 @@ function CastList(props) {
 
   const bodyInfo = (cast) => {
     let castDate = props.mSToDate(cast.castTime);
+    let catchDate = props.mSToDate(cast.reelInTime);
     return (
       <div className={styles.hBox}>
         <div>
@@ -39,13 +46,13 @@ function CastList(props) {
           <div>
             <div>
               {`Cast Time: ${
-                castDate.getHours() < 10
-                  ? `0${castDate.getHours()}`
-                  : castDate.getHours()
+                castDate.getUTCHours() < 10
+                  ? `0${castDate.getUTCHours()}`
+                  : castDate.getUTCHours()
               }:${
-                castDate.getMinutes() < 10
-                  ? `0${castDate.getMinutes()}`
-                  : castDate.getMinutes()
+                castDate.getUTCMinutes() < 10
+                  ? `0${castDate.getUTCMinutes()}`
+                  : castDate.getUTCMinutes()
               }`}
             </div>
             <div>{`Duration: ${(
@@ -54,9 +61,22 @@ function CastList(props) {
           </div>
         </div>
         {cast.catch ? (
-          <div>catch</div>
+          <div>
+            <div>
+              {cast.weight}lb {props.species[cast.species].name}
+            </div>
+            <div>{`Catch Time: ${
+              catchDate.getUTCHours() < 10
+                ? `0${catchDate.getUTCHours()}`
+                : catchDate.getUTCHours()
+            }:${
+              catchDate.getUTCMinutes < 10
+                ? `0${catchDate.getUTCMinutes()}`
+                : catchDate.getUTCMinutes()
+            }`}</div>
+          </div>
         ) : (
-          <div style={{ borderStyle: "solid" }}>&nbsp;</div>
+          <div></div>
         )}
       </div>
     );
@@ -83,6 +103,12 @@ function CastList(props) {
             </Accordion.Collapse>
           </Card>
         ))}
+        <Card
+          className={styles.showItem}
+          onClick={() => setNumberDisplayed(numberDisplayed + 10)}
+        >
+          show more
+        </Card>
       </Accordion>
     </div>
   );

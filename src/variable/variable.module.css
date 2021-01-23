@@ -123,6 +123,10 @@
   align-items: center;
 }
 
+.castHistory::-webkit-scrollbar {
+  display: none;
+}
+
 .monthXScale {
   width: 91vw;
   float: right;

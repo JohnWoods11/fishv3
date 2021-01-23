@@ -5,3 +5,11 @@
   justify-content: space-between;
   flex-basis: 30%;
 }
+
+.showItem {
+  color: blue;
+  font-size: large;
+  font-weight: bold;
+  align-items: center;
+  cursor: pointer;
+}

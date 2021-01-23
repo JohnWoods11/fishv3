@@ -176,11 +176,11 @@ function DevData(castsWanted) {
     let dayMultiplier = 0;
     //multipliers decrease chance
     //equation produces realistic catch/time data
-    hourMultiplier = Math.abs(catchTime.getHours() - 12);
+    hourMultiplier = Math.abs(catchTime.getUTCHours() - 12);
     hourMultiplier = (hourMultiplier + 1) / 6;
 
     //equation produces realistic catch/date data
-    dayMultiplier = Math.abs(catchTime.getMonth() - 7);
+    dayMultiplier = Math.abs(catchTime.getUTCMonth() - 7);
     dayMultiplier = dayMultiplier + 1;
     let castCatch = 0;
     if (getRandomInt(dayMultiplier * hourMultiplier) < 1) {
@@ -191,7 +191,7 @@ function DevData(castsWanted) {
 
     let castSpecies = getRandomInt(100);
     let previousSpecies = 0;
-    let castWeight = Math.random() * 250;
+    let castWeight = Number((Math.random() * 250).toFixed(2));
 
     for (let i = 0; i < lakes[castLake].lakes[0].fish.length; i++) {
       let speciesDivider = lakes[castLake].lakes[0].fish[i];
