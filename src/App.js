@@ -124,9 +124,9 @@ class App extends React.Component {
   };
 
   mSToHours = (milliseconds) => {
-    let hours = (milliseconds/86400).toFixed();
+    let hours = (milliseconds / 3600000).toFixed();
     return hours < 1 ? "less than 1 hour" : `${hours} hours`;
-  }
+  };
 
   render() {
     return (

@@ -10,7 +10,7 @@ function DevData(castsWanted) {
           castIndexes: [],
           duration: 0,
           catches: 0,
-          heaviestCatch: {weight:0, species:null},
+          heaviestCatch: { weight: 0, species: null },
           fish: [30, 20, 10, 40],
         },
       ],
@@ -23,7 +23,7 @@ function DevData(castsWanted) {
           castIndexes: [],
           duration: 0,
           catches: 0,
-          heaviestCatch: {weight:0, species:null},
+          heaviestCatch: { weight: 0, species: null },
           fish: [10, 60, 10, 20],
         },
       ],
@@ -36,7 +36,7 @@ function DevData(castsWanted) {
           castIndexes: [],
           duration: 0,
           catches: 0,
-          heaviestCatch: {weight:0, species:null},
+          heaviestCatch: { weight: 0, species: null },
           fish: [40, 40, 0, 20],
         },
       ],
@@ -49,7 +49,7 @@ function DevData(castsWanted) {
           castIndexes: [],
           duration: 0,
           catches: 0,
-          heaviestCatch: {weight:0, species:null},
+          heaviestCatch: { weight: 0, species: null },
           fish: [30, 30, 10, 30],
         },
       ],
@@ -59,37 +59,65 @@ function DevData(castsWanted) {
     {
       name: "Carp",
       castIndexes: [],
-      heaviestCatch: {weight:0, species:null},
+      catches: 0,
+      heaviestCatch: { weight: 0, species: null },
       stylePref: [0.3, 0.6, 0, 0.8],
       baitPref: [0.6, 0.5, 0.4, 0],
     },
     {
       name: "Roach",
       castIndexes: [],
-      heaviestCatch: {weight:0, species:null},
+      catches: 0,
+      heaviestCatch: { weight: 0, species: null },
       stylePref: [0.8, 0.2, 0.1, 0.3],
       baitPref: [0.6, 0.8, 0.2, 0],
     },
     {
       name: "Pike",
       castIndexes: [],
-      heaviestCatch: {weight:0, species:null},
+      catches: 0,
+      heaviestCatch: { weight: 0, species: null },
       stylePref: [0.4, 0.4, 0.8, 0.6],
       baitPref: [0.3, 0.5, 0, 0.8],
     },
     {
       name: "Perch",
       castIndexes: [],
-      heaviestCatch: {weight:0, species:null},
+      catches: 0,
+      heaviestCatch: { weight: 0, species: null },
       stylePref: [0.3, 0.3, 0.7, 0.4],
       baitPref: [0.4, 0.5, 0.4, 0.8],
     },
   ];
   let baits = [
-    { name: "Sweetcorn", castIndexes: [], duration: 0, catches: 0, heaviestCatch: {weight:0, species:null} },
-    { name: "Maggots", castIndexes: [], duration: 0, catches: 0, heaviestCatch: {weight:0, species:null} },
-    { name: "Bread", castIndexes: [], duration: 0, catches: 0, heaviestCatch: {weight:0, species:null} },
-    { name: "Lure", castIndexes: [], duration: 0, catches: 0, heaviestCatch: {weight:0, species:null} },
+    {
+      name: "Sweetcorn",
+      castIndexes: [],
+      duration: 0,
+      catches: 0,
+      heaviestCatch: { weight: 0, species: null },
+    },
+    {
+      name: "Maggots",
+      castIndexes: [],
+      duration: 0,
+      catches: 0,
+      heaviestCatch: { weight: 0, species: null },
+    },
+    {
+      name: "Bread",
+      castIndexes: [],
+      duration: 0,
+      catches: 0,
+      heaviestCatch: { weight: 0, species: null },
+    },
+    {
+      name: "Lure",
+      castIndexes: [],
+      duration: 0,
+      catches: 0,
+      heaviestCatch: { weight: 0, species: null },
+    },
   ];
   let styles = [
     {
@@ -97,28 +125,28 @@ function DevData(castsWanted) {
       castIndexes: [],
       duration: 0,
       catches: 0,
-      heaviestCatch: {weight:0, species:null}
+      heaviestCatch: { weight: 0, species: null },
     },
     {
       name: "Ledger",
       castIndexes: [],
       duration: 0,
       catches: 0,
-      heaviestCatch: {weight:0, species:null}
+      heaviestCatch: { weight: 0, species: null },
     },
     {
       name: "Spin",
       castIndexes: [],
       duration: 0,
       catches: 0,
-      heaviestCatch: {weight:0, species:null}
+      heaviestCatch: { weight: 0, species: null },
     },
     {
       name: "Feeder",
       castIndexes: [],
       duration: 0,
       catches: 0,
-      heaviestCatch: {weight:0, species:null}
+      heaviestCatch: { weight: 0, species: null },
     },
   ];
   let devCasts = [];
@@ -140,7 +168,7 @@ function DevData(castsWanted) {
 
     let castCastTime = today - getRandomInt(31557600000);
     let castDuration = getRandomInt(20000000) + 40000;
-    let castReelInTime = castCastTime - castDuration;
+    let castReelInTime = castCastTime + castDuration;
 
     let catchTime = new Date();
     catchTime.setMilliseconds(castReelInTime);
@@ -197,7 +225,7 @@ function DevData(castsWanted) {
       bait: castBait,
       style: castStyle,
       species: castSpecies,
-      weight: castWeight
+      weight: castWeight,
     });
 
     //link used variables to cast history entry
@@ -212,33 +240,32 @@ function DevData(castsWanted) {
     //update variable data
     lakes[castLake].lakes[0].duration += castDuration;
     lakes[castLake].lakes[0].catches += castCatch;
-    if (castWeight > lakes[castLake].lakes[0].heaviestCatch.weight)
-       {
-           lakes[castLake].lakes[0].heaviestCatch.species = species[castSpecies].name;
-           lakes[castLake].lakes[0].heaviestCatch.weight = castWeight.toFixed(2);
-       }
+    if (castWeight > lakes[castLake].lakes[0].heaviestCatch.weight) {
+      lakes[castLake].lakes[0].heaviestCatch.species =
+        species[castSpecies].name;
+      lakes[castLake].lakes[0].heaviestCatch.weight = castWeight.toFixed(2);
+    }
     baits[castBait].duration += castDuration;
     baits[castBait].catches += castCatch;
-    if (castWeight > baits[castBait].heaviestCatch.weight)
-       {
-           baits[castBait].heaviestCatch.species = species[castSpecies].name;
-           baits[castBait].heaviestCatch.weight = castWeight.toFixed(2);
-       }
+    if (castWeight > baits[castBait].heaviestCatch.weight) {
+      baits[castBait].heaviestCatch.species = species[castSpecies].name;
+      baits[castBait].heaviestCatch.weight = castWeight.toFixed(2);
+    }
     styles[castStyle].duration += castDuration;
     styles[castStyle].catches += castCatch;
-    if (castWeight > styles[castStyle].heaviestCatch.weight)
-       {
-           styles[castStyle].heaviestCatch.species = species[castSpecies].name;
-           styles[castStyle].heaviestCatch.weight = castWeight.toFixed(2);
-       }
-       if (castSpecies)
-       {
-          if (castWeight > species[castSpecies].heaviestCatch.weight)
-            {
-                species[castSpecies].heaviestCatch.species = species[castSpecies].name;
-                species[castSpecies].heaviestCatch.weight = castWeight.toFixed(2);
-            }
-          }  
+    if (castWeight > styles[castStyle].heaviestCatch.weight) {
+      styles[castStyle].heaviestCatch.species = species[castSpecies].name;
+      styles[castStyle].heaviestCatch.weight = castWeight.toFixed(2);
+    }
+    if (castSpecies !== null) {
+      if (castWeight > species[castSpecies].heaviestCatch.weight) {
+        species[castSpecies].heaviestCatch.species = species[castSpecies].name;
+        species[castSpecies].heaviestCatch.weight = castWeight.toFixed(2);
+      }
+    }
+    if (castCatch) {
+      species[castSpecies].catches++;
+    }
   }
   devData.castHistory = devCasts;
   devData.lakes = lakes;

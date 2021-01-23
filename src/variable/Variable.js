@@ -3,6 +3,8 @@ import styles from "./variable.module.css";
 import TimeGraph from "./TimeGraph";
 import { Redirect } from "react-router-dom";
 import DayGraph from "./DayGraph";
+import CastList from "./CastList";
+
 function Variable(props) {
   console.log(props.variable);
   const dailyinfo = [];
@@ -80,12 +82,29 @@ function Variable(props) {
         </div>
       </div>
       <div className={styles.basicVarInfo}>
-        <div className={styles.map}><div>Geolocation and aerialimage here!</div></div>
+        <div className={styles.map}>
+          <div>
+            {props.variable.variableType === "lakes"
+              ? "Geolocation and aerialimage here!"
+              : null}
+          </div>
+        </div>
         <div className={styles.basicInfo}>
-          <div><b>Time cast:</b> {props.mSToHours(variable.duration)}</div>
-          <div><b>Casts:</b> {variable.castIndexes.length}</div>
-          <div><b>Catches:</b> {variable.catches}</div>
-          <div><b>PB:</b> {variable.heaviestCatch.weight === 0 ? "NA" : `${variable.heaviestCatch.weight} ${variable.heaviestCatch.species}`}</div>
+          <div>
+            <b>Time cast:</b> {props.mSToHours(variable.duration)}
+          </div>
+          <div>
+            <b>Casts:</b> {variable.castIndexes.length}
+          </div>
+          <div>
+            <b>Catches:</b> {variable.catches}
+          </div>
+          <div>
+            <b>PB:</b>{" "}
+            {variable.heaviestCatch.weight === 0
+              ? "NA"
+              : `${variable.heaviestCatch.weight} ${variable.heaviestCatch.species}`}
+          </div>
           <div></div>
         </div>
       </div>
@@ -137,10 +156,14 @@ function Variable(props) {
         </div>
       </div>
       <div className={styles.castHistory}>
-        <div style={{backgroundColor: "blue"}}>a cast</div>
-        <div>a cast</div>
-        <div>a cast</div>
-        <div>a cast</div>
+        <CastList
+          castHistory={props.castHistory}
+          castIndexes={variable.castIndexes}
+          styles={props.styles}
+          lakes={props.lakes}
+          baits={props.baits}
+          mSToDate={props.mSToDate}
+        ></CastList>
       </div>
     </div>
   );
