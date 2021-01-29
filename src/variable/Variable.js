@@ -20,57 +20,62 @@ function Variable(props) {
     return <Redirect to="/fishv3/manage"></Redirect>;
   }
 
-  const variable =
-    props.variable.variableType === "lakes"
-      ? props.lakes[props.variable.variableIndex].lakes[0]
-      : props[props.variable.variableType][props.variable.variableIndex];
+  let variable = null;
 
-  if (variable.castIndexes === undefined) {
-    return <Redirect to="/fishv3/manage"> </Redirect>;
-  }
-  variable.castIndexes.map((castIndex, index) => {
-    let reelInTime = props.mSToDate(props.castHistory[castIndex].reelInTime);
-    let castDuration = props.castHistory[castIndex].duration / 60000;
-    let catchTime = new Date();
-    catchTime.setMilliseconds(reelInTime);
-
-    let reelInHour = catchTime.getUTCHours();
-    let reelInMinute = catchTime.getUTCMinutes();
-    let reelInDate = catchTime.getUTCDate();
-    let reelInMonth = catchTime.getUTCMonth();
-
-    if (props.castHistory[castIndex].catch) {
-      dailyinfo[reelInHour].catches += 1;
-      yearlyInfo[reelInMonth * 31 + reelInDate - 1].catches += 1;
+  if (
+    props[props.variable.variableType][props.variable.variableIndex] !== null
+  ) {
+    variable =
+      props.variable.variableType === "lakes"
+        ? props.lakes[props.variable.variableIndex].lakes[0]
+        : props[props.variable.variableType][props.variable.variableIndex];
+    if (variable.castIndexes === undefined) {
+      return <Redirect to="/fishv3/manage"> </Redirect>;
     }
-    let reelInHourMins = reelInMinute;
+    variable.castIndexes.map((castIndex, index) => {
+      let reelInTime = props.mSToDate(props.castHistory[castIndex].reelInTime);
+      let castDuration = props.castHistory[castIndex].duration / 60000;
+      let catchTime = new Date();
+      catchTime.setMilliseconds(reelInTime);
 
-    dailyinfo[reelInHour].durationFished += reelInHourMins;
-    for (
-      let hour = 1, minutes = castDuration - reelInHourMins;
-      minutes > 0;
-      hour++
-    ) {
-      if (minutes > 59) {
-        minutes -= 60;
-        dailyinfo[(reelInHour + 24 - hour) % 24].durationFished += 60;
-      } else {
-        dailyinfo[(reelInHour + 24 - hour) % 24].durationFished += minutes;
-        minutes -= minutes;
+      let reelInHour = catchTime.getUTCHours();
+      let reelInMinute = catchTime.getUTCMinutes();
+      let reelInDate = catchTime.getUTCDate();
+      let reelInMonth = catchTime.getUTCMonth();
+
+      if (props.castHistory[castIndex].catch) {
+        dailyinfo[reelInHour].catches += 1;
+        yearlyInfo[reelInMonth * 31 + reelInDate - 1].catches += 1;
       }
-    }
-    yearlyInfo[
-      reelInMonth * 31 + reelInDate - 1
-    ].durationFished += castDuration;
-  });
+      let reelInHourMins = reelInMinute;
 
-  yearlyInfo.splice(59, 3);
-  yearlyInfo.splice(120, 1);
-  yearlyInfo.splice(181, 1);
-  yearlyInfo.splice(273, 1);
-  yearlyInfo.splice(334, 1);
+      dailyinfo[reelInHour].durationFished += reelInHourMins;
+      for (
+        let hour = 1, minutes = castDuration - reelInHourMins;
+        minutes > 0;
+        hour++
+      ) {
+        if (minutes > 59) {
+          minutes -= 60;
+          dailyinfo[(reelInHour + 24 - hour) % 24].durationFished += 60;
+        } else {
+          dailyinfo[(reelInHour + 24 - hour) % 24].durationFished += minutes;
+          minutes -= minutes;
+        }
+      }
+      yearlyInfo[
+        reelInMonth * 31 + reelInDate - 1
+      ].durationFished += castDuration;
+    });
 
-  return (
+    yearlyInfo.splice(59, 3);
+    yearlyInfo.splice(120, 1);
+    yearlyInfo.splice(181, 1);
+    yearlyInfo.splice(273, 1);
+    yearlyInfo.splice(334, 1);
+  }
+
+  return variable == null ? null : (
     <div className={styles.container}>
       <div className={styles.variableHeader}>
         <div className={styles.navButton} onClick={props.prevVar}>

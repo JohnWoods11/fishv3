@@ -8,8 +8,28 @@ import { Link } from "react-router-dom";
 function VariableManagement(props) {
   const [filter, setFilter] = useState("lakes");
 
+  const addVariable = (newVariable) => {
+    switch (filter) {
+      case "lakes":
+        props.addLake(newVariable);
+        break;
+      case "baits":
+        props.addBait(newVariable);
+        break;
+      case "styles":
+        props.addStyle(newVariable);
+        break;
+      case "species":
+        props.addSpecies(newVariable);
+    }
+  };
+
   const editVarName = (variableIndex) => {
     props.editVarName(filter, variableIndex);
+  };
+
+  const deleteVariable = (variableIndex) => {
+    props.deleteVariable(filter, variableIndex);
   };
 
   const setCurrentVariable = (variableIndex) => {
@@ -62,34 +82,34 @@ function VariableManagement(props) {
       {filter === "baits" ? (
         <VariableManager
           variables={props.baits}
-          addVariable={props.addBait}
+          addVariable={addVariable}
           setCurrentVariable={setCurrentVariable}
           editVarName={editVarName}
-          deleteVar={props.deleteVar}
+          deleteVar={deleteVariable}
         ></VariableManager>
       ) : filter === "styles" ? (
         <VariableManager
           variables={props.styles}
-          addVariable={props.addStyle}
+          addVariable={addVariable}
           setCurrentVariable={setCurrentVariable}
           editVarName={editVarName}
-          deleteVar={props.deleteVar}
+          deleteVar={deleteVariable}
         ></VariableManager>
       ) : filter === "species" ? (
         <VariableManager
           variables={props.species}
-          addVariable={props.addSpecies}
+          addVariable={addVariable}
           setCurrentVariable={setCurrentVariable}
           editVarName={editVarName}
-          deleteVar={props.deleteVar}
+          deleteVar={deleteVariable}
         ></VariableManager>
       ) : (
         <VariableManager
           variables={props.lakes}
-          addVariable={props.addLakes}
+          addVariable={addVariable}
           setCurrentVariable={setCurrentVariable}
           editVarName={editVarName}
-          deleteVar={props.deleteVar}
+          deleteVar={deleteVariable}
         ></VariableManager>
       )}
 

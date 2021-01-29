@@ -14,21 +14,23 @@ function LakeAccordion(props) {
   return (
     <div className={styles.container}>
       <Accordion className={styles.accordian}>
-        {props.lakes.map((lake, index) => (
-          <Card
-            style={{
-              backgroundColor:
-                index === props.currentIndex ? "rgb(0,123,255)" : "white",
-              color: index === props.currentIndex ? "white" : "black",
-            }}
-            onClick={() => {
-              props.selectLake(index);
-            }}
-            className={styles.lakeItem}
-          >
-            {lake.name}
-          </Card>
-        ))}
+        {props.lakes.map((lake, index) =>
+          lake === null ? null : (
+            <Card
+              style={{
+                backgroundColor:
+                  index === props.currentIndex ? "rgb(0,123,255)" : "white",
+                color: index === props.currentIndex ? "white" : "black",
+              }}
+              onClick={() => {
+                props.selectLake(index);
+              }}
+              className={styles.lakeItem}
+            >
+              {lake.name}
+            </Card>
+          )
+        )}
         <Card className={styles.lakeItem} onClick={addLake}>
           New Lake
         </Card>

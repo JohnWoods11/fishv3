@@ -27,7 +27,7 @@ class App extends React.Component {
     };
   }
   componentDidMount() {
-    let devState = DevData(100000);
+    /*let devState = DevData(100000);
     console.log(devState);
     this.setState({
       lakes: devState.lakes,
@@ -35,38 +35,82 @@ class App extends React.Component {
       styles: devState.styles,
       species: devState.species,
       castHistory: devState.castHistory,
-    });
+    });*/
+    if (localStorage.getItem("app-data")) {
+      let appData = JSON.parse(localStorage.getItem("app-data"));
+      console.log(appData);
+      this.setState({
+        lakes: appData.lakes,
+        baits: appData.baits,
+        styles: appData.styles,
+        species: appData.species,
+        castHistory: appData.castHistory,
+      });
+    }
   }
 
   addLake = (lakeName) => {
     let newLakes = [...this.state.lakes];
     let newLake = {
       name: lakeName,
-      lakes: [{ name: lakeName, duration: 0, catches: 0, castIndexes: [] }],
+      lakes: [
+        {
+          name: "lake 1",
+          duration: 0,
+          catches: 0,
+          heaviestCatch: { weight: 0, species: null },
+          castIndexes: [],
+        },
+      ],
     };
     newLakes.push(newLake);
-    this.setState({ lakes: newLakes });
+    this.setState({ lakes: newLakes }, () => {
+      localStorage.setItem("app-data", JSON.stringify(this.state));
+    });
   };
 
   addBait = (baitName) => {
     let newBaits = [...this.state.baits];
-    let newBait = { name: baitName, castIndexes: [] };
+    let newBait = {
+      name: baitName,
+      duration: 0,
+      catches: 0,
+      heaviestCatch: { weight: 0, species: null },
+      castIndexes: [],
+    };
     newBaits.push(newBait);
-    this.setState({ baits: newBaits });
+    this.setState({ baits: newBaits }, () => {
+      localStorage.setItem("app-data", JSON.stringify(this.state));
+    });
   };
 
   addStyle = (styleName) => {
     let newStyles = [...this.state.styles];
-    let newStyle = { name: styleName, castIndexes: [] };
+    let newStyle = {
+      name: styleName,
+      duration: 0,
+      catches: 0,
+      heaviestCatch: { weight: 0, species: null },
+      castIndexes: [],
+    };
     newStyles.push(newStyle);
-    this.setState({ styles: newStyles });
+    this.setState({ styles: newStyles }, () => {
+      localStorage.setItem("app-data", JSON.stringify(this.state));
+    });
   };
 
   addSpecies = (speciesName) => {
     let NewSpecies = [...this.state.species];
-    let NewSpecie = { name: speciesName, castIndexes: [] };
+    let NewSpecie = {
+      name: speciesName,
+      catches: 0,
+      heaviestCatch: { weight: 0, species: null },
+      castIndexes: [],
+    };
     NewSpecies.push(NewSpecie);
-    this.setState({ species: NewSpecies });
+    this.setState({ species: NewSpecies }, () => {
+      localStorage.setItem("app-data", JSON.stringify(this.state));
+    });
   };
 
   editVarName = (property, index) => {
@@ -74,12 +118,19 @@ class App extends React.Component {
     if (newName) {
       let editedVariables = [...this.state[property]];
       editedVariables[index].name = newName;
-      this.setState({ [property]: editedVariables });
+      this.setState({ [property]: editedVariables }, () => {
+        localStorage.setItem("app-data", JSON.stringify(this.state));
+      });
     }
   };
 
   deleteVar = (property, index) => {
-    alert("no work!");
+    alert(`${property} + ${index}`);
+    let updatedVariables = [...this.state[property]];
+    updatedVariables[index] = null;
+    this.setState({ [property]: updatedVariables }, () => {
+      localStorage.setItem("app-data", JSON.stringify(this.state));
+    });
   };
 
   setCurrentVariable = (filter, index) => {
@@ -162,7 +213,7 @@ class App extends React.Component {
                   addSpecies={this.addSpecies}
                   setCurrentVariable={this.setCurrentVariable}
                   editVarName={this.editVarName}
-                  deleteVar={this.deleteVar}
+                  deleteVariable={this.deleteVar}
                   mSToReadable={this.mSToReadable}
                 ></VariableManagement>
               )}

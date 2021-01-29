@@ -25,8 +25,9 @@ function VariableManager(props) {
     event.stopPropagation();
   };
 
-  const deleteVariable = (event) => {
-    props.deleteVar();
+  const deleteVariable = (event, index) => {
+    props.deleteVar(index);
+    console.log(index);
     event.stopPropagation();
   };
 
@@ -35,41 +36,43 @@ function VariableManager(props) {
   ) : (
     <div className={styles.container}>
       <Accordion>
-        {props.variables.map((variable, index) => (
-          <Card>
-            <Accordion.Toggle as={Card.Header} eventKey={index}>
-              <div
-                className={styles.variableHeader}
-                onClick={() => {
-                  goToVar(index);
-                }}
-              >
-                <div>{variable.name}</div>
-                <div className={styles.buttons}>
-                  <Button
-                    className={styles.button}
-                    variant="secondary"
-                    onClick={(event) => {
-                      editVarName(event, index);
-                    }}
-                  >
-                    <div>&#9998;</div>
-                  </Button>
+        {props.variables.map((variable, index) =>
+          variable == null ? null : (
+            <Card>
+              <Accordion.Toggle as={Card.Header} eventKey={index}>
+                <div
+                  className={styles.variableHeader}
+                  onClick={() => {
+                    goToVar(index);
+                  }}
+                >
+                  <div>{variable.name}</div>
+                  <div className={styles.buttons}>
+                    <Button
+                      className={styles.button}
+                      variant="secondary"
+                      onClick={(event) => {
+                        editVarName(event, index);
+                      }}
+                    >
+                      <div>&#9998;</div>
+                    </Button>
 
-                  <Button
-                    className={styles.button}
-                    variant="danger"
-                    onClick={(event) => {
-                      deleteVariable(event);
-                    }}
-                  >
-                    &#10006;
-                  </Button>
+                    <Button
+                      className={styles.button}
+                      variant="danger"
+                      onClick={(event) => {
+                        deleteVariable(event, index);
+                      }}
+                    >
+                      &#10006;
+                    </Button>
+                  </div>
                 </div>
-              </div>
-            </Accordion.Toggle>
-          </Card>
-        ))}
+              </Accordion.Toggle>
+            </Card>
+          )
+        )}
         <Accordion.Toggle
           as={Card.Header}
           style={{ backgroundColor: "lightGray" }}
