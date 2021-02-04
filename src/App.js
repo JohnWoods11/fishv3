@@ -23,7 +23,8 @@ class App extends React.Component {
       styles: [],
       species: [],
       castHistory: [],
-      currentVariable: ["lakes", 0],
+      currentVariable: {},
+      location: null,
     };
   }
   componentDidMount() {
@@ -47,6 +48,7 @@ class App extends React.Component {
         castHistory: appData.castHistory,
       });
     }
+    this.getLocation();
   }
 
   addLake = (lakeName) => {
@@ -55,7 +57,7 @@ class App extends React.Component {
       name: lakeName,
       lakes: [
         {
-          name: "lake 1",
+          name: lakeName,
           duration: 0,
           catches: 0,
           heaviestCatch: { weight: 0, species: null },
@@ -141,19 +143,32 @@ class App extends React.Component {
 
   nextVar = () => {
     let newCurrentVariable = this.state.currentVariable;
-    newCurrentVariable.variableIndex ===
-    this.state[newCurrentVariable.variableType].length - 1
-      ? (newCurrentVariable.variableIndex = 0)
-      : newCurrentVariable.variableIndex++;
+    do {
+      newCurrentVariable.variableIndex ===
+      this.state[newCurrentVariable.variableType].length - 1
+        ? (newCurrentVariable.variableIndex = 0)
+        : newCurrentVariable.variableIndex++;
+    } while (
+      this.state[newCurrentVariable.variableType][
+        newCurrentVariable.variableIndex
+      ] === null
+    );
+
     this.setState({ currentVariable: newCurrentVariable });
   };
 
   prevVar = () => {
     let newCurrentVariable = this.state.currentVariable;
-    newCurrentVariable.variableIndex === 0
-      ? (newCurrentVariable.variableIndex =
-          this.state[newCurrentVariable.variableType].length - 1)
-      : newCurrentVariable.variableIndex--;
+    do {
+      newCurrentVariable.variableIndex === 0
+        ? (newCurrentVariable.variableIndex =
+            this.state[newCurrentVariable.variableType].length - 1)
+        : newCurrentVariable.variableIndex--;
+    } while (
+      this.state[newCurrentVariable.variableType][
+        newCurrentVariable.variableIndex
+      ] === null
+    );
     this.setState({ currentVariable: newCurrentVariable });
   };
 
@@ -177,6 +192,28 @@ class App extends React.Component {
   mSToHours = (milliseconds) => {
     let hours = (milliseconds / 3600000).toFixed();
     return hours < 1 ? "less than 1 hour" : `${hours} hours`;
+  };
+
+  // Weather and map features
+
+  getLocation = () => {
+    navigator.geolocation.getCurrentPosition(
+      this.locationSuccess,
+      this.locationError,
+      { enableHighAccuracy: false, maximumAge: Infinity, timeout: 30000 }
+    );
+  };
+
+  locationSuccess = (pos) => {
+    let coordinates = {
+      latitude: pos.coords.latitude.toFixed(0),
+      longitude: pos.coords.longitude.toFixed(0),
+    };
+    console.log(coordinates);
+  };
+
+  locationError = (err) => {
+    console.log(`Error code: ${err.code}   message: ${err.message}`);
   };
 
   render() {
