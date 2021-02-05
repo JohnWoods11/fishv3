@@ -40,13 +40,18 @@ class App extends React.Component {
     if (localStorage.getItem("app-data")) {
       let appData = JSON.parse(localStorage.getItem("app-data"));
       console.log(appData);
-      this.setState({
-        lakes: appData.lakes,
-        baits: appData.baits,
-        styles: appData.styles,
-        species: appData.species,
-        castHistory: appData.castHistory,
-      });
+      this.setState(
+        {
+          lakes: appData.lakes,
+          baits: appData.baits,
+          styles: appData.styles,
+          species: appData.species,
+          castHistory: appData.castHistory,
+        },
+        function () {
+          this.setWeather(0);
+        }
+      );
     }
     this.getLocation();
   }
@@ -64,6 +69,8 @@ class App extends React.Component {
           castIndexes: [],
         },
       ],
+      weather: { data: null, lastUpdated: null },
+      coordinates: { latitude: 52, longitude: 1 },
     };
     newLakes.push(newLake);
     this.setState({ lakes: newLakes }, () => {
@@ -196,24 +203,69 @@ class App extends React.Component {
 
   // Weather and map features
 
+  // Getting current coordinates
   getLocation = () => {
     navigator.geolocation.getCurrentPosition(
       this.locationSuccess,
       this.locationError,
-      { enableHighAccuracy: false, maximumAge: Infinity, timeout: 30000 }
+      { enableHighAccuracy: false, maximumAge: Infinity, timeout: 10000 }
     );
   };
 
   locationSuccess = (pos) => {
     let coordinates = {
-      latitude: pos.coords.latitude.toFixed(0),
-      longitude: pos.coords.longitude.toFixed(0),
+      latitude: pos.coords.latitude,
+      longitude: pos.coords.longitude,
     };
     console.log(coordinates);
   };
 
   locationError = (err) => {
     console.log(`Error code: ${err.code}   message: ${err.message}`);
+  };
+
+  // Getting weather (RETURNS PROMISE CHAIN... MUST WAIT FOR RETURN ON CALL)
+  getWeather = (coordinates) => {
+    let key = "9224b10de6e78631ab14b66a8c44d997";
+    let url = `https://api.openweathermap.org/data/2.5/onecall?lat=${coordinates.latitude.toFixed(
+      0
+    )}&lon=${coordinates.longitude.toFixed(
+      0
+    )}&exclude=current,minutely,alert&units=metric&appid=${key}`;
+
+    return fetch(url)
+      .then((response) => {
+        if (!response.ok) {
+          throw new Error("Network response not ok");
+        }
+        return response.text();
+      })
+      .then((y) => JSON.parse(y))
+      .catch((error) =>
+        console.error(
+          "There has been a problem with your fetch operation: ",
+          error
+        )
+      );
+  };
+
+  updateWeather = (lakeIndex, weather) => {
+    let newLakes = [...this.state.lakes];
+    let currentDate = new Date();
+    newLakes[lakeIndex].weather.data = weather;
+    newLakes[lakeIndex].weather.lastUpdated = currentDate.getTime();
+    this.setState(
+      { lakes: newLakes },
+      localStorage.setItem("app-data", JSON.stringify(this.state))
+    );
+  };
+
+  setWeather = (lakeIndex) => {
+    if (this.state.lakes[lakeIndex].coordinates !== null) {
+      this.getWeather(this.state.lakes[lakeIndex].coordinates).then((weather) =>
+        this.updateWeather(lakeIndex, weather)
+      );
+    }
   };
 
   render() {
