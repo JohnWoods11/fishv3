@@ -1,5 +1,7 @@
 import React from "react";
+import { Link } from "react-router-dom";
 import styles from "./variable.module.css";
+import Button from "react-bootstrap/Button";
 import TimeGraph from "./TimeGraph";
 import { Redirect } from "react-router-dom";
 import DayGraph from "./DayGraph";
@@ -181,8 +183,12 @@ function Variable(props) {
           mSToDate={props.mSToDate}
         ></CastList>
       </div>
+      <Link to="/fishv3/manage/">
+        <Button variant="primary" block>
+          back
+        </Button>
+      </Link>
     </div>
   );
 }
-
 export default Variable;

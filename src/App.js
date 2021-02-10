@@ -25,6 +25,7 @@ class App extends React.Component {
       castHistory: [],
       currentVariable: {},
       location: null,
+      managerFilter: "lakes",
     };
   }
   componentDidMount() {
@@ -37,6 +38,7 @@ class App extends React.Component {
       species: devState.species,
       castHistory: devState.castHistory,
     });*/
+    console.log(this.state.managerFilter);
     if (localStorage.getItem("app-data")) {
       let appData = JSON.parse(localStorage.getItem("app-data"));
       console.log(appData);
@@ -179,6 +181,12 @@ class App extends React.Component {
     this.setState({ currentVariable: newCurrentVariable });
   };
 
+  setManagerFilter = (newFilter) => {
+    let newManagerFilter = this.state.managerFilter;
+    newManagerFilter = newFilter;
+    this.setState({ managerFilter: newManagerFilter });
+  };
+
   mSToReadable = (milliseconds) => {
     let seconds = (milliseconds / 1000) % 60;
     let secondsNoDecimal = seconds.toFixed();
@@ -301,6 +309,8 @@ class App extends React.Component {
                   addBait={this.addBait}
                   addStyle={this.addStyle}
                   addSpecies={this.addSpecies}
+                  filter={this.state.managerFilter}
+                  setFilter={this.setManagerFilter}
                   setCurrentVariable={this.setCurrentVariable}
                   editVarName={this.editVarName}
                   deleteVariable={this.deleteVar}

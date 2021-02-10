@@ -82,7 +82,11 @@ function CastList(props) {
     );
   };
 
-  return (
+  return props.castIndexes.length === 0 ? (
+    <div class="container">
+      <h4 style={{ textAlign: "center" }}>NO CASTS RECORDED YET</h4>
+    </div>
+  ) : (
     <div className={styles.container}>
       <Accordion className={styles.accordion}>
         {displayedCasts.map((castIndex, index) => (

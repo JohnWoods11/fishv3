@@ -6,10 +6,8 @@ import VariableManager from "./VariableManager";
 import { Link } from "react-router-dom";
 
 function VariableManagement(props) {
-  const [filter, setFilter] = useState("lakes");
-
   const addVariable = (newVariable) => {
-    switch (filter) {
+    switch (props.filter) {
       case "lakes":
         props.addLake(newVariable);
         break;
@@ -25,15 +23,15 @@ function VariableManagement(props) {
   };
 
   const editVarName = (variableIndex) => {
-    props.editVarName(filter, variableIndex);
+    props.editVarName(props.filter, variableIndex);
   };
 
   const deleteVariable = (variableIndex) => {
-    props.deleteVariable(filter, variableIndex);
+    props.deleteVariable(props.filter, variableIndex);
   };
 
   const setCurrentVariable = (variableIndex) => {
-    props.setCurrentVariable(filter, variableIndex);
+    props.setCurrentVariable(props.filter, variableIndex);
   };
 
   return (
@@ -46,40 +44,40 @@ function VariableManagement(props) {
       </div>
       <ButtonGroup className={styles.variableSelectors}>
         <Button
-          variant={filter === "lakes" ? "success" : "primary"}
+          variant={props.filter === "lakes" ? "success" : "primary"}
           onClick={() => {
-            setFilter("lakes");
+            props.setFilter("lakes");
           }}
         >
           Lakes
         </Button>
         <Button
-          variant={filter === "baits" ? "success" : "primary"}
+          variant={props.filter === "baits" ? "success" : "primary"}
           onClick={() => {
-            setFilter("baits");
+            props.setFilter("baits");
           }}
         >
           Baits
         </Button>
         <Button
-          variant={filter === "styles" ? "success" : "primary"}
+          variant={props.filter === "styles" ? "success" : "primary"}
           onClick={() => {
-            setFilter("styles");
+            props.setFilter("styles");
           }}
         >
           Styles
         </Button>
         <Button
-          variant={filter === "species" ? "success" : "primary"}
+          variant={props.filter === "species" ? "success" : "primary"}
           onClick={() => {
-            setFilter("species");
+            props.setFilter("species");
           }}
         >
           Species
         </Button>
       </ButtonGroup>
 
-      {filter === "baits" ? (
+      {props.filter === "baits" ? (
         <VariableManager
           variables={props.baits}
           addVariable={addVariable}
@@ -87,7 +85,7 @@ function VariableManagement(props) {
           editVarName={editVarName}
           deleteVar={deleteVariable}
         ></VariableManager>
-      ) : filter === "styles" ? (
+      ) : props.filter === "styles" ? (
         <VariableManager
           variables={props.styles}
           addVariable={addVariable}
@@ -95,7 +93,7 @@ function VariableManagement(props) {
           editVarName={editVarName}
           deleteVar={deleteVariable}
         ></VariableManager>
-      ) : filter === "species" ? (
+      ) : props.filter === "species" ? (
         <VariableManager
           variables={props.species}
           addVariable={addVariable}
