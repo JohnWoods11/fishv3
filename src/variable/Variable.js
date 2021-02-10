@@ -21,14 +21,22 @@ function Variable(props) {
   }
 
   let variable = null;
+  let coordinates = null;
+  let mapAPIAddress = null;
 
   if (
     props[props.variable.variableType][props.variable.variableIndex] !== null
   ) {
-    variable =
-      props.variable.variableType === "lakes"
-        ? props.lakes[props.variable.variableIndex].lakes[0]
-        : props[props.variable.variableType][props.variable.variableIndex];
+    if (props.variable.variableType === "lakes") {
+      coordinates = props.lakes[props.variable.variableIndex].coordinates;
+      if (coordinates !== null) {
+        mapAPIAddress = `https://www.mapquestapi.com/staticmap/v5/map?key=A7omwtwwpDrrpg4x1QDSeCTy8VutBoT4&center=${coordinates.latitude},${coordinates.longitude}&zoom=13&size=200,200&type=sat`;
+      }
+      variable = props.lakes[props.variable.variableIndex].lakes[0];
+    } else
+      variable =
+        props[props.variable.variableType][props.variable.variableIndex];
+
     if (variable.castIndexes === undefined) {
       return <Redirect to="/fishv3/manage"> </Redirect>;
     }
@@ -88,11 +96,13 @@ function Variable(props) {
       </div>
       <div className={styles.basicVarInfo}>
         <div className={styles.map}>
-          <div>
-            {props.variable.variableType === "lakes"
-              ? "Geolocation and aerialimage here!"
-              : null}
-          </div>
+          {props.variable.variableType === "lakes" ? (
+            coordinates !== null ? (
+              <img className={styles.mapImage} src={mapAPIAddress}></img>
+            ) : (
+              <div>NO MAP DATA</div>
+            )
+          ) : null}
         </div>
         <div className={styles.basicInfo}>
           <div>

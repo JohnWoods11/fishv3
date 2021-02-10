@@ -49,7 +49,7 @@ class App extends React.Component {
           castHistory: appData.castHistory,
         },
         function () {
-          this.setWeather(0);
+          this.setWeather(1);
         }
       );
     }
@@ -70,7 +70,7 @@ class App extends React.Component {
         },
       ],
       weather: { data: null, lastUpdated: null },
-      coordinates: { latitude: 52, longitude: 1 },
+      coordinates: { latitude: 52.4811, longitude: 1.7534 },
     };
     newLakes.push(newLake);
     this.setState({ lakes: newLakes }, () => {
@@ -249,17 +249,18 @@ class App extends React.Component {
       );
   };
 
+  //store weather data and update time
   updateWeather = (lakeIndex, weather) => {
     let newLakes = [...this.state.lakes];
     let currentDate = new Date();
     newLakes[lakeIndex].weather.data = weather;
     newLakes[lakeIndex].weather.lastUpdated = currentDate.getTime();
-    this.setState(
-      { lakes: newLakes },
-      localStorage.setItem("app-data", JSON.stringify(this.state))
-    );
+    this.setState({ lakes: newLakes }, () => {
+      localStorage.setItem("app-data", JSON.stringify(this.state));
+    });
   };
 
+  //wait for weather api response then update weather
   setWeather = (lakeIndex) => {
     if (this.state.lakes[lakeIndex].coordinates !== null) {
       this.getWeather(this.state.lakes[lakeIndex].coordinates).then((weather) =>
