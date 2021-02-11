@@ -17,6 +17,7 @@ function LakeAccordion(props) {
         {props.lakes.map((lake, index) =>
           lake === null ? null : (
             <Card
+              key={index}
               style={{
                 backgroundColor:
                   index === props.currentIndex ? "rgb(0,123,255)" : "white",

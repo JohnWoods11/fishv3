@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import styles from "./lakeStats.module.css";
 import Button from "react-bootstrap/Button";
 import { Redirect } from "react-router-dom";
+import TodaysWeather from "./weather/TodaysWeather";
 
 function LakeStats(props) {
   const [toVariable, setToVariable] = useState(false);
@@ -37,7 +38,9 @@ function LakeStats(props) {
               )}{" "}
             </div>
             <div className={styles.infoBody}>Biggest Catch: </div>
-            <div className={styles.timeData}>to do</div>
+            <div className={styles.timeData}>
+              <TodaysWeather weather={props.lakes[1].weather}></TodaysWeather>
+            </div>
           </div>
           {props.isFullScreen ? null : (
             <div className={styles.buttonContainer}>

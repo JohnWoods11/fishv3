@@ -42,7 +42,7 @@ function Variable(props) {
     if (variable.castIndexes === undefined) {
       return <Redirect to="/fishv3/manage"> </Redirect>;
     }
-    variable.castIndexes.map((castIndex, index) => {
+    variable.castIndexes.map((castIndex) => {
       let reelInTime = props.mSToDate(props.castHistory[castIndex].reelInTime);
       let castDuration = props.castHistory[castIndex].duration / 60000;
       let catchTime = new Date();
@@ -100,7 +100,11 @@ function Variable(props) {
         <div className={styles.map}>
           {props.variable.variableType === "lakes" ? (
             coordinates !== null ? (
-              <img className={styles.mapImage} src={mapAPIAddress}></img>
+              <img
+                className={styles.mapImage}
+                src={mapAPIAddress}
+                alt="lake"
+              ></img>
             ) : (
               <div>NO MAP DATA</div>
             )

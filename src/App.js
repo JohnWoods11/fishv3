@@ -1,12 +1,7 @@
 import React from "react";
 import styles from "./app.module.css";
 import Nav from "./nav/Nav";
-import {
-  BrowserRouter as Router,
-  Switch,
-  Route,
-  Redirect,
-} from "react-router-dom";
+import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import MainMenu from "./mainMenu/MainMenu";
 import VariableManagement from "./variableManagement/VaraibleManagement";
 import "bootstrap/dist/css/bootstrap.min.css";
@@ -239,7 +234,7 @@ class App extends React.Component {
       0
     )}&lon=${coordinates.longitude.toFixed(
       0
-    )}&exclude=current,minutely,alert&units=metric&appid=${key}`;
+    )}&exclude=minutely,alert&units=metric&appid=${key}`;
 
     return fetch(url)
       .then((response) => {
