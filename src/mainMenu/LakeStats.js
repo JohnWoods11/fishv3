@@ -25,21 +25,31 @@ function LakeStats(props) {
             <div className={styles.infoHeader}>
               {props.lakes[props.lakeIndex].name}
             </div>
-            <div className={styles.infoBody}>
-              Catches: {props.lakes[props.lakeIndex].lakes[0].catches}{" "}
-            </div>
-            <div className={styles.infoBody}>
-              Casts: {props.lakes[props.lakeIndex].lakes[0].castIndexes.length}
-            </div>
-            <div className={styles.infoBody}>
-              Time Fished:{" "}
-              {props.mSToReadable(
-                props.lakes[props.lakeIndex].lakes[0].duration
-              )}{" "}
-            </div>
-            <div className={styles.infoBody}>Biggest Catch: </div>
-            <div className={styles.timeData}>
-              <TodaysWeather weather={props.lakes[1].weather}></TodaysWeather>
+            <div className={styles.hbox}>
+              <div className={styles.stats}>
+                <div className={styles.infoBody}>
+                  &#128031; {props.lakes[props.lakeIndex].lakes[0].catches}{" "}
+                </div>
+                <div className={styles.infoBody}>
+                  &#127907;{" "}
+                  {props.lakes[props.lakeIndex].lakes[0].castIndexes.length}
+                </div>
+                <div className={styles.infoBody}>
+                  &#9202;
+                  {props.mSToReadable(
+                    props.lakes[props.lakeIndex].lakes[0].duration
+                  )}
+                </div>
+                <div className={styles.infoBody}>
+                  &#9878;{" "}
+                  {props.lakes[props.lakeIndex].lakes[0].heaviestCatch.weight}{" "}
+                </div>
+              </div>
+              <div className={styles.timeData}>
+                <TodaysWeather
+                  weather={props.lakes[props.lakeIndex].weather}
+                ></TodaysWeather>
+              </div>
             </div>
           </div>
           {props.isFullScreen ? null : (

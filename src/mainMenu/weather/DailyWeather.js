@@ -1,13 +1,41 @@
 import React from "react";
 import styles from "./dailyWeather.module.css";
+import getIcon from "./IconManager";
 
 function DailyWeather(props) {
+  const getDate = (ms) => {
+    //convert seconds into milliseconds
+    let date = new Date();
+    date.setTime(ms * 1000);
+    return `${date.getUTCDate()}/${date.getUTCMonth() + 1}`;
+  };
+
   console.log(props.weather);
-  return props.weather ? (
+
+  return props.weather.data ? (
     <div className={styles.container}>
-      {props.weather.map((day, index) => (
+      {props.weather.data.daily.map((day, index) => (
         <div key={index} className={styles.day}>
-          {Math.round(day.temp.day)}
+          <div style={{ fontWeight: "bold" }}>{getDate(day.dt)}</div>
+          <div style={{ backgroundColor: "orange" }}>
+            {Math.round(day.temp.day)}&deg;
+          </div>
+          <div style={{ backgroundColor: "black", color: "white" }}>
+            {Math.round(day.temp.night)}&deg;
+          </div>
+          <div>
+            <img src={getIcon(day.weather[0].icon)}></img>
+          </div>
+          <div
+            style={{
+              fontSize: "large",
+              fontWeight: "bold",
+              transform: `rotate(${day.wind_deg}deg)`,
+            }}
+          >
+            &uarr;
+          </div>
+          <div>{Math.round(day.wind_speed * 2.23)}</div>
         </div>
       ))}
     </div>

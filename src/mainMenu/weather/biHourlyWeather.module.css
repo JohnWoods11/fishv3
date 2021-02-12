@@ -6,7 +6,7 @@
   justify-content: space-around;
 }
 
-.day {
+.hour {
   display: flex;
   flex-direction: column;
   font-size: small;

@@ -24,15 +24,17 @@ class App extends React.Component {
     };
   }
   componentDidMount() {
-    /*let devState = DevData(100000);
-    console.log(devState);
-    this.setState({
-      lakes: devState.lakes,
-      baits: devState.baits,
-      styles: devState.styles,
-      species: devState.species,
-      castHistory: devState.castHistory,
-    });*/
+    if (!localStorage.getItem("app-data")) {
+      let devState = DevData(100000);
+      console.log(devState);
+      this.setState({
+        lakes: devState.lakes,
+        baits: devState.baits,
+        styles: devState.styles,
+        species: devState.species,
+        castHistory: devState.castHistory,
+      });
+    }
     console.log(this.state.managerFilter);
     if (localStorage.getItem("app-data")) {
       let appData = JSON.parse(localStorage.getItem("app-data"));
@@ -201,7 +203,7 @@ class App extends React.Component {
 
   mSToHours = (milliseconds) => {
     let hours = (milliseconds / 3600000).toFixed();
-    return hours < 1 ? "less than 1 hour" : `${hours} hours`;
+    return hours < 1 ? " 0 h" : `${hours} h`;
   };
 
   // Weather and map features
@@ -234,7 +236,7 @@ class App extends React.Component {
       0
     )}&lon=${coordinates.longitude.toFixed(
       0
-    )}&exclude=minutely,alert&units=metric&appid=${key}`;
+    )}&exclude=current,minutely,alert&units=metric&appid=${key}`;
 
     return fetch(url)
       .then((response) => {
@@ -286,7 +288,7 @@ class App extends React.Component {
                   lakes={this.state.lakes}
                   addLake={this.addLake}
                   setCurrentVariable={this.setCurrentVariable}
-                  mSToReadable={this.mSToReadable}
+                  mSToReadable={this.mSToHours}
                 ></MainMenu>
               )}
             ></Route>

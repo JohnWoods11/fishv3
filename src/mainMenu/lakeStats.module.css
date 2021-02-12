@@ -8,6 +8,11 @@
   justify-content: space-between;
 }
 
+.hbox {
+  display: flex;
+  flex-direction: row;
+}
+
 .button {
   width: 40vw;
 }
@@ -23,14 +28,22 @@
   text-align: center;
   font-size: large;
   font-weight: 500;
+  font-weight: bold;
+}
+
+.stats {
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
+  width: 50%;
 }
 
 .timeData {
   display: flex;
-  background-color: lightblue;
-  height: 10vh;
   justify-content: center;
   align-items: center;
+  flex-grow: 1;
+  width: 30%;
 }
 
 .buttonContainer {
