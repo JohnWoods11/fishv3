@@ -3,13 +3,10 @@ import styles from "./todaysWeather.module.css";
 import getIcon from "./IconManager";
 
 function TodaysWeather(props) {
-  console.log(props.weather);
-
   let today;
 
   if (props.weather.data) {
     today = props.weather.data.daily[0];
-    console.log(today);
   }
 
   return props.weather.data ? (

@@ -4,6 +4,8 @@ import Button from "react-bootstrap/Button";
 import DailyWeather from "./weather/DailyWeather";
 import BiHourlyWeather from "./weather/BiHourlyWeather";
 import { Redirect } from "react-router-dom";
+import Tabs from "react-bootstrap/Tabs";
+import Tab from "react-bootstrap/Tab";
 
 function ExtraLakeStats(props) {
   const [toVariable, setToVariable] = useState(false);
@@ -18,7 +20,16 @@ function ExtraLakeStats(props) {
   ) : (
     <div className={styles.container}>
       {props.lakeIndex !== null ? (
-        <BiHourlyWeather weather={props.lakes[props.lakeIndex].weather} />
+        <div style={{ width: "100%" }}>
+          <Tabs defaultActiveKey="daily">
+            <Tab eventKey="daily" title="Daily">
+              <DailyWeather weather={props.lakes[props.lakeIndex].weather} />
+            </Tab>
+            <Tab eventKey="Hourly" title="Hourly">
+              <BiHourlyWeather weather={props.lakes[props.lakeIndex].weather} />
+            </Tab>
+          </Tabs>{" "}
+        </div>
       ) : (
         <div>Select a lake to see the weather</div>
       )}

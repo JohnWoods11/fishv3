@@ -48,7 +48,7 @@ class App extends React.Component {
           castHistory: appData.castHistory,
         },
         function () {
-          this.setWeather(1);
+          this.weatherRefresh();
         }
       );
     }
@@ -260,6 +260,7 @@ class App extends React.Component {
     let currentDate = new Date();
     newLakes[lakeIndex].weather.data = weather;
     newLakes[lakeIndex].weather.lastUpdated = currentDate.getTime();
+    console.log(newLakes);
     this.setState({ lakes: newLakes }, () => {
       localStorage.setItem("app-data", JSON.stringify(this.state));
     });
@@ -271,6 +272,28 @@ class App extends React.Component {
       this.getWeather(this.state.lakes[lakeIndex].coordinates).then((weather) =>
         this.updateWeather(lakeIndex, weather)
       );
+    }
+  };
+
+  //update all lakes weather
+  weatherRefresh = () => {
+    let time = new Date().getTime();
+    console.log(time);
+    for (let i = 0; i < this.state.lakes.length; i++) {
+      if (this.state.lakes[i] !== null) {
+        console.log(
+          `${this.state.lakes[i].weather.lastUpdated}, ${
+            time - this.state.lakes[i].weather.lastUpdated > 1800000
+          }`
+        );
+        if (
+          this.state.lakes[i].coordinates !== null &&
+          time - this.state.lakes[i].weather.lastUpdated > 1800000
+        ) {
+          console.log(`fetching ${i}`);
+          this.setWeather(i);
+        }
+      }
     }
   };
 
