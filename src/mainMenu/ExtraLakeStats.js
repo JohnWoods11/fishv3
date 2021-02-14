@@ -10,8 +10,8 @@ import Tab from "react-bootstrap/Tab";
 function ExtraLakeStats(props) {
   const [toVariable, setToVariable] = useState(false);
 
-  const goToVar = (variable) => {
-    props.setCurrentVariable(variable);
+  const goToVar = (type, index) => {
+    props.setCurrentVariable(type, index);
     setToVariable(true);
   };
 
@@ -40,7 +40,7 @@ function ExtraLakeStats(props) {
             className={styles.button}
             variant="info"
             onClick={() => {
-              goToVar(props.lakes[props.lakeIndex]);
+              goToVar("lakes", props.lakeIndex);
             }}
           >
             Lake

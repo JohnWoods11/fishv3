@@ -10,8 +10,6 @@ function DailyWeather(props) {
     return `${date.getUTCDate()}/${date.getUTCMonth() + 1}`;
   };
 
-  console.log(props.weather);
-
   return props.weather.data ? (
     <div className={styles.container}>
       {props.weather.data.daily.map((day, index) => (
@@ -30,7 +28,7 @@ function DailyWeather(props) {
             style={{
               fontSize: "large",
               fontWeight: "bold",
-              transform: `rotate(${day.wind_deg}deg)`,
+              transform: `rotate(${day.wind_deg + 180}deg)`,
             }}
           >
             &uarr;

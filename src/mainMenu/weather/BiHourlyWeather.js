@@ -40,7 +40,7 @@ function BiHourlyWeather(props) {
             style={{
               fontSize: "large",
               fontWeight: "bold",
-              transform: `rotate(${hour.wind_deg}deg)`,
+              transform: `rotate(${hour.wind_deg + 180}deg)`,
             }}
           >
             &uarr;

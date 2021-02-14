@@ -23,6 +23,7 @@ function MainMenu(props) {
 
   const selectLake = (index) => {
     setLakeSelected(index);
+    props.setCurrentVariable("lakes", index);
   };
 
   return (
@@ -66,6 +67,7 @@ function MainMenu(props) {
             fishLake={fishLake}
             mSToReadable={props.mSToReadable}
             setCurrentVariable={props.setCurrentVariable}
+            setLocation={props.setLocation}
           ></LakeStats>
         </div>
       )}

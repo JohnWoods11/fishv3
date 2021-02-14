@@ -3,6 +3,7 @@ import styles from "./lakeStats.module.css";
 import Button from "react-bootstrap/Button";
 import { Redirect } from "react-router-dom";
 import TodaysWeather from "./weather/TodaysWeather";
+import CoordInput from "./CoordInput";
 
 function LakeStats(props) {
   const [toVariable, setToVariable] = useState(false);
@@ -52,7 +53,12 @@ function LakeStats(props) {
               </div>
             </div>
           </div>
-          {props.isFullScreen ? null : (
+          {props.isFullScreen ? (
+            <CoordInput
+              coords={props.lakes[props.lakeIndex].coordinates}
+              setLocation={() => props.setLocation(props.lakeIndex)}
+            ></CoordInput>
+          ) : (
             <div className={styles.buttonContainer}>
               {" "}
               <Button

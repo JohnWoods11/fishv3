@@ -24,7 +24,7 @@ function TodaysWeather(props) {
         style={{
           fontSize: "large",
           fontWeight: "bold",
-          transform: `rotate(${today.wind_deg}deg)`,
+          transform: `rotate(${today.wind_deg + 180}deg)`,
         }}
       >
         &uarr;

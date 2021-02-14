@@ -52,7 +52,6 @@ class App extends React.Component {
         }
       );
     }
-    this.getLocation();
   }
 
   addLake = (lakeName) => {
@@ -126,6 +125,9 @@ class App extends React.Component {
     if (newName) {
       let editedVariables = [...this.state[property]];
       editedVariables[index].name = newName;
+      if (property === "lakes") {
+        editedVariables[index].lakes[0].name = newName;
+      }
       this.setState({ [property]: editedVariables }, () => {
         localStorage.setItem("app-data", JSON.stringify(this.state));
       });
@@ -141,10 +143,17 @@ class App extends React.Component {
     });
   };
 
-  setCurrentVariable = (filter, index) => {
-    this.setState({
-      currentVariable: { variableType: filter, variableIndex: index },
-    });
+  setCurrentVariable = (filter, index, callback = null) => {
+    if ((callback = null)) {
+      this.setState({
+        currentVariable: { variableType: filter, variableIndex: index },
+      });
+    } else {
+      this.setState({
+        currentVariable: { variableType: filter, variableIndex: index },
+        callback,
+      });
+    }
   };
 
   nextVar = () => {
@@ -209,6 +218,7 @@ class App extends React.Component {
   // Weather and map features
 
   // Getting current coordinates
+
   getLocation = () => {
     navigator.geolocation.getCurrentPosition(
       this.locationSuccess,
@@ -218,15 +228,27 @@ class App extends React.Component {
   };
 
   locationSuccess = (pos) => {
-    let coordinates = {
+    let newCoordinates = {
       latitude: pos.coords.latitude,
       longitude: pos.coords.longitude,
     };
-    console.log(coordinates);
+
+    let newLakes = [...this.state.lakes];
+    newLakes[
+      this.state.currentVariable.variableIndex
+    ].coordinates = newCoordinates;
+    this.setState({ lakes: newLakes }, () => {
+      localStorage.setItem("app-data", JSON.stringify(this.state));
+    });
+    //maybe setweather here as callback
   };
 
   locationError = (err) => {
     console.log(`Error code: ${err.code}   message: ${err.message}`);
+  };
+
+  setLocation = () => {
+    this.getLocation();
   };
 
   // Getting weather (RETURNS PROMISE CHAIN... MUST WAIT FOR RETURN ON CALL)
@@ -275,7 +297,7 @@ class App extends React.Component {
     }
   };
 
-  //update all lakes weather
+  //update all lakes weather if 30+ mins old
   weatherRefresh = () => {
     let time = new Date().getTime();
     console.log(time);
@@ -287,7 +309,7 @@ class App extends React.Component {
           }`
         );
         if (
-          this.state.lakes[i].coordinates !== null &&
+          this.state.lakes[i].coordinates &&
           time - this.state.lakes[i].weather.lastUpdated > 1800000
         ) {
           console.log(`fetching ${i}`);
@@ -312,6 +334,7 @@ class App extends React.Component {
                   addLake={this.addLake}
                   setCurrentVariable={this.setCurrentVariable}
                   mSToReadable={this.mSToHours}
+                  setLocation={this.setLocation}
                 ></MainMenu>
               )}
             ></Route>
