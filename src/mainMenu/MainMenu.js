@@ -68,6 +68,7 @@ function MainMenu(props) {
             mSToReadable={props.mSToReadable}
             setCurrentVariable={props.setCurrentVariable}
             setLocation={props.setLocation}
+            manualSetLocation={props.manualSetLocation}
           ></LakeStats>
         </div>
       )}

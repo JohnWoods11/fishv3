@@ -21,7 +21,7 @@ function ExtraLakeStats(props) {
     <div className={styles.container}>
       {props.lakeIndex !== null ? (
         <div style={{ width: "100%" }}>
-          <Tabs defaultActiveKey="daily">
+          <Tabs transition={false} defaultActiveKey="daily">
             <Tab eventKey="daily" title="Daily">
               <DailyWeather weather={props.lakes[props.lakeIndex].weather} />
             </Tab>

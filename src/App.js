@@ -251,6 +251,21 @@ class App extends React.Component {
     this.getLocation();
   };
 
+  manualSetLocation = (newLatitude, newLongitude) => {
+    let newCoordinates = {
+      latitude: newLatitude,
+      longitude: newLongitude,
+    };
+    let newLakes = [...this.state.lakes];
+    newLakes[
+      this.state.currentVariable.variableIndex
+    ].coordinates = newCoordinates;
+    console.log(newCoordinates);
+    this.setState({ lakes: newLakes }, () => {
+      localStorage.setItem("app-data", JSON.stringify(this.state));
+    });
+  };
+
   // Getting weather (RETURNS PROMISE CHAIN... MUST WAIT FOR RETURN ON CALL)
   getWeather = (coordinates) => {
     let key = "9224b10de6e78631ab14b66a8c44d997";
@@ -335,6 +350,7 @@ class App extends React.Component {
                   setCurrentVariable={this.setCurrentVariable}
                   mSToReadable={this.mSToHours}
                   setLocation={this.setLocation}
+                  manualSetLocation={this.manualSetLocation}
                 ></MainMenu>
               )}
             ></Route>

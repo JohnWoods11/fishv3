@@ -57,6 +57,7 @@ function LakeStats(props) {
             <CoordInput
               coords={props.lakes[props.lakeIndex].coordinates}
               setLocation={() => props.setLocation(props.lakeIndex)}
+              manualSetLocation={props.manualSetLocation}
             ></CoordInput>
           ) : (
             <div className={styles.buttonContainer}>
