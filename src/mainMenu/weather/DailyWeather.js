@@ -22,7 +22,10 @@ function DailyWeather(props) {
             {Math.round(day.temp.night)}&deg;
           </div>
           <div>
-            <img src={getIcon(day.weather[0].icon)}></img>
+            <img
+              src={getIcon(day.weather[0].icon)}
+              alt={`${day.weather[0].main} icon`}
+            ></img>
           </div>
           <div
             style={{

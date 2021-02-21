@@ -68,7 +68,7 @@ class App extends React.Component {
         },
       ],
       weather: { data: null, lastUpdated: null },
-      coordinates: { latitude: 52.4811, longitude: 1.7534 },
+      coordinates: null,
     };
     newLakes.push(newLake);
     this.setState({ lakes: newLakes }, () => {
@@ -239,8 +239,9 @@ class App extends React.Component {
     ].coordinates = newCoordinates;
     this.setState({ lakes: newLakes }, () => {
       localStorage.setItem("app-data", JSON.stringify(this.state));
+      this.setWeather(this.state.currentVariable.variableIndex);
+      //maybe setweather as new function checking coordinates are different
     });
-    //maybe setweather here as callback
   };
 
   locationError = (err) => {
@@ -263,6 +264,8 @@ class App extends React.Component {
     console.log(newCoordinates);
     this.setState({ lakes: newLakes }, () => {
       localStorage.setItem("app-data", JSON.stringify(this.state));
+      this.setWeather(this.state.currentVariable.variableIndex);
+      //maybe setweather as new function checking coordinates are different
     });
   };
 
@@ -270,9 +273,9 @@ class App extends React.Component {
   getWeather = (coordinates) => {
     let key = "9224b10de6e78631ab14b66a8c44d997";
     let url = `https://api.openweathermap.org/data/2.5/onecall?lat=${coordinates.latitude.toFixed(
-      0
+      4
     )}&lon=${coordinates.longitude.toFixed(
-      0
+      4
     )}&exclude=current,minutely,alert&units=metric&appid=${key}`;
 
     return fetch(url)
@@ -297,7 +300,6 @@ class App extends React.Component {
     let currentDate = new Date();
     newLakes[lakeIndex].weather.data = weather;
     newLakes[lakeIndex].weather.lastUpdated = currentDate.getTime();
-    console.log(newLakes);
     this.setState({ lakes: newLakes }, () => {
       localStorage.setItem("app-data", JSON.stringify(this.state));
     });
@@ -306,6 +308,7 @@ class App extends React.Component {
   //wait for weather api response then update weather
   setWeather = (lakeIndex) => {
     if (this.state.lakes[lakeIndex].coordinates !== null) {
+      console.log(this.state.lakes[lakeIndex].coordinates);
       this.getWeather(this.state.lakes[lakeIndex].coordinates).then((weather) =>
         this.updateWeather(lakeIndex, weather)
       );
@@ -334,6 +337,19 @@ class App extends React.Component {
     }
   };
 
+  //update single lakes weather if 30+ minutes old
+  lakeWeatherRefresh = (lakeIndex) => {
+    let time = new Date().getTime();
+    if (this.state.lakes[lakeIndex] !== null) {
+      if (this.state.lakes[lakeIndex].coordinates) {
+        if (time - this.state.lakes[lakeIndex].weather.lastUpdated > 1800000) {
+          console.log(`fetching ${lakeIndex}`);
+          this.setWeather(lakeIndex);
+        }
+      }
+    }
+  };
+
   render() {
     return (
       <div className={styles.app}>
@@ -351,6 +367,7 @@ class App extends React.Component {
                   mSToReadable={this.mSToHours}
                   setLocation={this.setLocation}
                   manualSetLocation={this.manualSetLocation}
+                  lakeWeatherRefresh={this.lakeWeatherRefresh}
                 ></MainMenu>
               )}
             ></Route>

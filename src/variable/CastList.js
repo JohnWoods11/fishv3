@@ -83,7 +83,7 @@ function CastList(props) {
   };
 
   return props.castIndexes.length === 0 ? (
-    <div class="container">
+    <div className="container">
       <h4 style={{ textAlign: "center" }}>NO CASTS RECORDED YET</h4>
     </div>
   ) : (

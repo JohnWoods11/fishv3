@@ -37,15 +37,17 @@ function CoordInput(props) {
   return (
     <div className={styles.container}>
       <div className={styles.hbox}>
-        <a>
+        <div>
           {props.coords
             ? `${props.coords.latitude.toFixed(
                 2
               )}N ${props.coords.longitude.toFixed(2)}E`
             : "--"}
-        </a>
-        <Button onClick={() => props.setLocation()}>&#9678;</Button>
-        <Button onClick={manualUpdate}>&#9998;</Button>
+        </div>
+        <div className={styles.hbox}>
+          <Button onClick={() => props.setLocation()}>&#9678;</Button>
+          <Button onClick={manualUpdate}>&#9998;</Button>
+        </div>
       </div>
       <div></div>
     </div>

@@ -24,6 +24,7 @@ function MainMenu(props) {
   const selectLake = (index) => {
     setLakeSelected(index);
     props.setCurrentVariable("lakes", index);
+    props.lakeWeatherRefresh(index);
   };
 
   return (

@@ -5,7 +5,7 @@ function TimeGraph(props) {
   return (
     <div className={styles.container}>
       {props.times.map((time, index) => (
-        <div className={styles.hour}>
+        <div className={styles.hour} key={index}>
           <div
             style={{
               height: `${

@@ -42,7 +42,12 @@ function Variable(props) {
     if (variable.castIndexes === undefined) {
       return <Redirect to="/fishv3/manage"> </Redirect>;
     }
-    variable.castIndexes.map((castIndex) => {
+    //variable.castIndexes.map((castIndex) =>
+    for (
+      let castIndex = 0;
+      castIndex < variable.castIndexes.length;
+      castIndex++
+    ) {
       let reelInTime = props.mSToDate(props.castHistory[castIndex].reelInTime);
       let castDuration = props.castHistory[castIndex].duration / 60000;
       let catchTime = new Date();
@@ -76,7 +81,7 @@ function Variable(props) {
       yearlyInfo[
         reelInMonth * 31 + reelInDate - 1
       ].durationFished += castDuration;
-    });
+    }
 
     yearlyInfo.splice(59, 3);
     yearlyInfo.splice(120, 1);
@@ -143,7 +148,10 @@ function Variable(props) {
           </div>
           <div className={styles.dailyXScale}>
             {dailyinfo.map((time, index) => (
-              <div style={{ width: `${90 / 24}vw`, textAlign: "center" }}>
+              <div
+                style={{ width: `${90 / 24}vw`, textAlign: "center" }}
+                key={index}
+              >
                 {index}
               </div>
             ))}

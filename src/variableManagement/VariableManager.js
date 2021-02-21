@@ -38,7 +38,7 @@ function VariableManager(props) {
       <Accordion>
         {props.variables.map((variable, index) =>
           variable == null ? null : (
-            <Card>
+            <Card key={index}>
               <Accordion.Toggle as={Card.Header} eventKey={index}>
                 <div
                   className={styles.variableHeader}

@@ -41,6 +41,8 @@ function getIcon(iconCode) {
     case "50d":
     case "50n":
       return mist;
+    default:
+      console.log(`unrecognised weather icon code: ${iconCode}`);
   }
 }
 

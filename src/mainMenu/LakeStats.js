@@ -29,20 +29,29 @@ function LakeStats(props) {
             <div className={styles.hbox}>
               <div className={styles.stats}>
                 <div className={styles.infoBody}>
-                  &#128031; {props.lakes[props.lakeIndex].lakes[0].catches}{" "}
+                  <span role="img" aria-label="catches">
+                    &#128031;
+                  </span>{" "}
+                  {props.lakes[props.lakeIndex].lakes[0].catches}{" "}
                 </div>
                 <div className={styles.infoBody}>
-                  &#127907;{" "}
+                  <span role="img" aria-label="casts">
+                    &#127907;
+                  </span>
                   {props.lakes[props.lakeIndex].lakes[0].castIndexes.length}
                 </div>
                 <div className={styles.infoBody}>
-                  &#9202;
+                  <span role="img" aria-label="time cast">
+                    &#9202;
+                  </span>
                   {props.mSToReadable(
                     props.lakes[props.lakeIndex].lakes[0].duration
                   )}
                 </div>
                 <div className={styles.infoBody}>
-                  &#9878;{" "}
+                  <span role="img" aria-label="heaviest catch">
+                    &#9878;
+                  </span>
                   {props.lakes[props.lakeIndex].lakes[0].heaviestCatch.weight}{" "}
                 </div>
               </div>

@@ -5,7 +5,7 @@ function DayGraph(props) {
   return (
     <div className={styles.container}>
       {props.days.map((day, index) => (
-        <div className={styles.day}>
+        <div className={styles.day} key={index}>
           <div
             style={{
               height: `${

@@ -34,7 +34,10 @@ function BiHourlyWeather(props) {
             </div>
           )}
           <div>
-            <img src={getIcon(hour.weather[0].icon)}></img>
+            <img
+              src={getIcon(hour.weather[0].icon)}
+              alt={`${hour.weather[0].main} icon`}
+            ></img>
           </div>
           <div
             style={{

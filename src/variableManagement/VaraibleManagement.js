@@ -19,6 +19,9 @@ function VariableManagement(props) {
         break;
       case "species":
         props.addSpecies(newVariable);
+        break;
+      default:
+        console.log(`Unrecognised variable filter : ${props.filter}`);
     }
   };
 
