@@ -3,7 +3,7 @@ import styles from "./mainMenu.module.css";
 import LakeAccordion from "./LakeAccordion";
 import LakeStats from "./LakeStats";
 import Button from "react-bootstrap/Button";
-import { Link } from "react-router-dom";
+import { Link, Redirect } from "react-router-dom";
 import SessionDash from "./SessionDash";
 import ExtraLakeStats from "./ExtraLakeStats";
 
@@ -25,6 +25,10 @@ function MainMenu(props) {
 
   const fishLake = (index) => {
     setIsFishing(true);
+  };
+
+  const toCurrentSession = () => {
+    return <Redirect to="/fishv3/session" />;
   };
 
   const resetIsFishing = () => {
@@ -68,6 +72,8 @@ function MainMenu(props) {
             setCurrentVariable={props.setCurrentVariable}
             setLocation={props.setLocation}
             manualSetLocation={props.manualSetLocation}
+            toCurrentSession={toCurrentSession}
+            currentSession={props.currentSession}
           ></LakeStats>
         </div>
       )}

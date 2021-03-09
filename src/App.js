@@ -48,6 +48,7 @@ class App extends React.Component {
           styles: appData.styles,
           species: appData.species,
           castHistory: appData.castHistory,
+          currentSession: appData.currentSession,
         },
         function () {
           this.weatherRefresh();
@@ -435,6 +436,7 @@ class App extends React.Component {
                   manualSetLocation={this.manualSetLocation}
                   lakeWeatherRefresh={this.lakeWeatherRefresh}
                   startSession={this.startSession}
+                  currentSession={this.state.currentSession}
                 ></MainMenu>
               )}
             ></Route>

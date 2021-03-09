@@ -13,6 +13,8 @@ function LakeStats(props) {
     setToVariable(true);
   };
 
+  console.log(props.currentSession);
+
   return toVariable ? (
     <Redirect to="/fishv3/variable"></Redirect>
   ) : (
@@ -80,7 +82,7 @@ function LakeStats(props) {
                 props.fishLake();
               }}
             >
-              Fish
+              {!props.currentSession ? "Fish" : "Session"}
             </Button>
           </div>
         </div>
