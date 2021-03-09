@@ -33,29 +33,6 @@ function ExtraLakeStats(props) {
       ) : (
         <div>Select a lake to see the weather</div>
       )}
-
-      {props.lakeIndex !== null ? (
-        <div className={styles.buttonContainer}>
-          <Button
-            className={styles.button}
-            variant="info"
-            onClick={() => {
-              goToVar("lakes", props.lakeIndex);
-            }}
-          >
-            Lake
-          </Button>
-          <Button
-            className={styles.button}
-            variant="success"
-            onClick={() => {
-              props.fishLake();
-            }}
-          >
-            Fish
-          </Button>
-        </div>
-      ) : null}
     </div>
   );
 }

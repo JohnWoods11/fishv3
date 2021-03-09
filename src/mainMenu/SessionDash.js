@@ -1,4 +1,5 @@
 import React from "react";
+import { Link } from "react-router-dom";
 import styles from "./sessionDash.module.css";
 import Button from "react-bootstrap/Button";
 
@@ -19,9 +20,17 @@ function SessionDash(props) {
         >
           back
         </Button>
-        <Button variant="success" className={styles.button}>
-          Start session
-        </Button>
+        <Link to="/fishv3/session">
+          <Button
+            variant="success"
+            className={styles.button}
+            onClick={() => {
+              props.startSession(props.lakeIndex);
+            }}
+          >
+            Start session
+          </Button>
+        </Link>
       </div>
     </div>
   );

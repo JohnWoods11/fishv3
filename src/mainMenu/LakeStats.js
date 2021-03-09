@@ -62,35 +62,27 @@ function LakeStats(props) {
               </div>
             </div>
           </div>
-          {props.isFullScreen ? (
-            <CoordInput
-              coords={props.lakes[props.lakeIndex].coordinates}
-              setLocation={() => props.setLocation(props.lakeIndex)}
-              manualSetLocation={props.manualSetLocation}
-            ></CoordInput>
-          ) : (
-            <div className={styles.buttonContainer}>
-              {" "}
-              <Button
-                className={styles.button}
-                variant="info"
-                onClick={() => {
-                  goToVar("lakes", props.lakeIndex);
-                }}
-              >
-                Lake
-              </Button>
-              <Button
-                className={styles.button}
-                variant="success"
-                onClick={() => {
-                  props.fishLake();
-                }}
-              >
-                Fish
-              </Button>
-            </div>
-          )}
+          <div className={styles.buttonContainer}>
+            {" "}
+            <Button
+              className={styles.button}
+              variant="info"
+              onClick={() => {
+                goToVar("lakes", props.lakeIndex);
+              }}
+            >
+              Lake
+            </Button>
+            <Button
+              className={styles.button}
+              variant="success"
+              onClick={() => {
+                props.fishLake();
+              }}
+            >
+              Fish
+            </Button>
+          </div>
         </div>
       )}
     </div>

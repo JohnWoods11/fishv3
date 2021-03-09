@@ -5,10 +5,11 @@
   flex-direction: column;
   justify-content: space-evenly;
   flex-wrap: wrap;
+  overflow: hidden;
 }
 
 .fishingDashboard {
-  height: 50vh;
+  height: 40vh;
   width: 100vw;
   display: flex;
   flex-direction: row;
@@ -36,20 +37,55 @@
 }
 
 .dashboardExtender {
-  height: 4vh;
+  height: 15vh;
   width: 100vw;
-  background-color: gray;
+
+  background-color: #007bff;
+
   color: aliceblue;
-  align-items: center;
+  font-weight: bolder;
+  font-size: large;
   text-align: center;
 }
-.optionButtons {
-  height: 33vh;
+
+.optionsWrapper {
+  height: 40vh;
   width: 100vw;
+
+  position: absolute;
+  bottom: 0;
+
+  pointer-events: none;
+  overflow: hidden;
+}
+
+.optionButtonsClosed {
+  height: 40vh;
+  width: 100vw;
+  background-color: white;
+
+  transform: translateY(30vh);
+  transition: transform 0.3s ease-out;
 
   display: flex;
   flex-direction: column;
   justify-content: space-evenly;
+
+  pointer-events: auto;
+}
+
+.optionButtonsOpened {
+  height: 40vh;
+  width: 100vw;
+  background-color: white;
+
+  transition: transform 0.3s ease-out;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+
+  pointer-events: auto;
 }
 
 .buttonContainer {

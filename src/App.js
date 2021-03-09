@@ -8,6 +8,7 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import Stats from "./stats/Stats";
 import Variable from "./variable/Variable";
 import DevData from "./DevData";
+import Session from "./session/Session";
 
 class App extends React.Component {
   constructor(props) {
@@ -21,6 +22,7 @@ class App extends React.Component {
       currentVariable: {},
       location: null,
       managerFilter: "lakes",
+      currentSession: null,
     };
   }
   componentDidMount() {
@@ -53,6 +55,15 @@ class App extends React.Component {
       );
     }
   }
+
+  getDefaultLake = () => {
+    for (let index = 0; index < this.state.lakes.length; index++) {
+      if (this.state.lakes[index] !== null) {
+        return index;
+      }
+    }
+    return null;
+  };
 
   addLake = (lakeName) => {
     let newLakes = [...this.state.lakes];
@@ -144,7 +155,7 @@ class App extends React.Component {
   };
 
   setCurrentVariable = (filter, index, callback = null) => {
-    if ((callback = null)) {
+    if (callback === null) {
       this.setState({
         currentVariable: { variableType: filter, variableIndex: index },
       });
@@ -379,6 +390,30 @@ class App extends React.Component {
     }
   };
 
+  startSession = (lakeIndex) => {
+    let newCurrentSession = this.state.currentSession;
+    newCurrentSession = {
+      lakeIndex: lakeIndex,
+      casting: false,
+      casts: 0,
+      bites: 0,
+      catches: 0,
+      castingDuration: 0,
+      bait: null,
+      style: null,
+      currentCast: {
+        catchSuccess: null,
+        castTime: null,
+        reelInTime: null,
+        bites: 0,
+      },
+      castHistory: [],
+    };
+    this.setState({ currentSession: newCurrentSession }, () => {
+      localStorage.setItem("app-data", JSON.stringify(this.state));
+    });
+  };
+
   render() {
     return (
       <div className={styles.app}>
@@ -391,12 +426,15 @@ class App extends React.Component {
               render={(props) => (
                 <MainMenu
                   lakes={this.state.lakes}
+                  getDefaultLake={this.getDefaultLake}
                   addLake={this.addLake}
+                  currentVariable={this.state.currentVariable}
                   setCurrentVariable={this.setCurrentVariable}
                   mSToReadable={this.mSToHours}
                   setLocation={this.setLocation}
                   manualSetLocation={this.manualSetLocation}
                   lakeWeatherRefresh={this.lakeWeatherRefresh}
+                  startSession={this.startSession}
                 ></MainMenu>
               )}
             ></Route>
@@ -459,6 +497,21 @@ class App extends React.Component {
                 ></Variable>
               )}
             ></Route>
+          </Switch>
+
+          <Switch>
+            <Route
+              path="/fishv3/session"
+              render={(props) => (
+                <Session
+                  currentSession={this.state.currentSession}
+                  lakes={this.state.lakes}
+                  baits={this.state.baits}
+                  styles={this.state.styles}
+                  species={this.state.species}
+                ></Session>
+              )}
+            />
           </Switch>
         </Router>
       </div>

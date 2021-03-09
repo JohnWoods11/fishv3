@@ -8,9 +8,20 @@ import SessionDash from "./SessionDash";
 import ExtraLakeStats from "./ExtraLakeStats";
 
 function MainMenu(props) {
-  const [lakeSelected, setLakeSelected] = useState(null);
+  const [lakeSelected, setLakeSelected] = useState(
+    props.currentVariable.variableType === "lakes"
+      ? props.currentVariable.variableIndex
+      : props.getDefaultLake()
+  );
   const [isFishing, setIsFishing] = useState(false);
-  const [dashIsFullScreen, setDashIsFullScreen] = useState(false);
+  const [dashIsFullScreen, setDashIsFullScreen] = useState(true);
+
+  console.log(
+    props.currentVariable.variableType,
+    props.getDefaultLake(),
+    lakeSelected,
+    "whats going on here?"
+  );
 
   const fishLake = (index) => {
     setIsFishing(true);
@@ -18,7 +29,6 @@ function MainMenu(props) {
 
   const resetIsFishing = () => {
     setIsFishing(false);
-    setLakeSelected(null);
   };
 
   const selectLake = (index) => {
@@ -31,28 +41,17 @@ function MainMenu(props) {
     <div className={styles.menuContainer}>
       {" "}
       {isFishing ? (
-        <div
-          className={
-            dashIsFullScreen
-              ? styles.fullScreenSessionDash
-              : styles.sessionDashboard
-          }
-        >
+        <div className={styles.sessionDashboard}>
           <SessionDash
             isFullScreen={dashIsFullScreen}
             lakes={props.lakes}
             lakeIndex={lakeSelected}
             resetIsFishing={resetIsFishing}
+            startSession={props.startSession}
           ></SessionDash>{" "}
         </div>
       ) : (
-        <div
-          className={
-            dashIsFullScreen
-              ? styles.fullScreenFishingDash
-              : styles.fishingDashboard
-          }
-        >
+        <div className={styles.fullScreenFishingDash}>
           <LakeAccordion
             className={styles.lakeAccordion}
             lakes={props.lakes}
@@ -62,7 +61,6 @@ function MainMenu(props) {
           ></LakeAccordion>
           <LakeStats
             className={styles.lakeStats}
-            isFullScreen={dashIsFullScreen}
             lakes={props.lakes}
             lakeIndex={lakeSelected}
             fishLake={fishLake}
@@ -73,24 +71,28 @@ function MainMenu(props) {
           ></LakeStats>
         </div>
       )}
-      {dashIsFullScreen && !isFishing ? (
-        <div className={styles.extraStats}>
-          <ExtraLakeStats
-            lakes={props.lakes}
-            lakeIndex={lakeSelected}
-            fishLake={fishLake}
-            setCurrentVariable={props.setCurrentVariable}
-          ></ExtraLakeStats>
-        </div>
-      ) : null}
-      <div
-        className={styles.dashboardExtender}
-        onClick={() => setDashIsFullScreen(!dashIsFullScreen)}
-      >
-        {!dashIsFullScreen ? "Full screen" : "Exit full screen"}
+      <div className={styles.extraStats}>
+        <ExtraLakeStats
+          lakes={props.lakes}
+          lakeIndex={lakeSelected}
+          fishLake={fishLake}
+          setCurrentVariable={props.setCurrentVariable}
+        ></ExtraLakeStats>
       </div>
-      {!dashIsFullScreen ? (
-        <div className={styles.optionButtons}>
+      <div className={styles.optionsWrapper}>
+        <div
+          className={
+            dashIsFullScreen
+              ? styles.optionButtonsClosed
+              : styles.optionButtonsOpened
+          }
+        >
+          <div
+            className={styles.dashboardExtender}
+            onClick={() => setDashIsFullScreen(!dashIsFullScreen)}
+          >
+            <p>Stats and Settings</p>
+          </div>
           <div className={styles.buttonContainer}>
             <div className={styles.buttonInfoContainer}>
               <div className={styles.buttonInfoHeader}>
@@ -116,7 +118,7 @@ function MainMenu(props) {
             </Link>
           </div>
         </div>
-      ) : null}
+      </div>
     </div>
   );
 }
