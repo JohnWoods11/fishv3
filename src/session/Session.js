@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { Link, Redirect } from "react-router-dom";
 import Button from "react-bootstrap/Button";
 import Dropdown from "react-bootstrap/Dropdown";
@@ -7,6 +7,56 @@ import ButtonGroup from "react-bootstrap/ButtonGroup";
 import styles from "./session.module.css";
 
 function Session(props) {
+  const [currentRodIndex, setCurrentRodIndex] = useState(0);
+
+  const getRod = (rodIndex) => {
+    try {
+      if (rodIndex + 1) {
+        let rod = {
+          sessionTime: 0,
+          castingTime: 0,
+          casts: props.currentSession.rods[rodIndex].casts,
+          catches: props.currentSession.rods[rodIndex].catches,
+          bites: props.currentSession.rods[rodIndex].bites,
+          casting: props.currentSession.rods[rodIndex].currentCast.casting,
+          bait: props.currentSession.rods[rodIndex].currentCast.bait,
+          style: props.currentSession.rods[rodIndex].currentCast.style,
+        };
+        let now = new Date();
+        let nowMilli = now.getTime();
+        rod.sessionTime = nowMilli - props.currentSession.startTime;
+        rod.castingTime =
+          nowMilli - props.currentSession.rods[rodIndex].castTime;
+        return rod;
+      } else {
+        let allRods = {
+          sessionTime: 0,
+          castingTime: 0,
+          casts: 0,
+          catches: 0,
+          bites: 0,
+          bait: null,
+          style: null,
+          casting: null,
+        };
+        let now = new Date();
+        let nowMilli = now.getTime();
+        allRods.sessionTime = nowMilli - props.currentSession.startTime;
+        for (const rod in props.currentSession.rods) {
+          allRods.castingTime +=
+            nowMilli - props.currentSession.rods[rod].castTime;
+          allRods.casts += props.currentSession.rods[rod].casts;
+          allRods.catches += props.currentSession.rods[rod].catches;
+          allRods.bites += props.currentSession.rods[rod].bites;
+        }
+        console.log(allRods);
+        return allRods;
+      }
+    } catch {
+      console.log(`Error: Couldn't retrieve rod ${rodIndex}.`);
+    }
+  };
+
   /*
   const endSession = () => {
     props.endSession();
@@ -42,7 +92,7 @@ function Session(props) {
     return <Redirect to="/fishv3/catch" />;
   };
 */
-  console.log(props.baits);
+  let currentRod = getRod(currentRodIndex);
   return props.currentSession ? (
     <div className={styles.container}>
       <div className={styles.display}>
@@ -51,16 +101,21 @@ function Session(props) {
         </div>
         <div className={styles.castInfo}>
           <div className={styles.displayItem}>
-            <p>Session time</p> <p>-time-</p>
+            <p>Session time</p> <p>{props.mSToHours(currentRod.sessionTime)}</p>
           </div>
           <div className={styles.displayItem}>
-            <p>Current cast time</p> <p>-time-</p>
+            <p>Current cast time</p>{" "}
+            <p>{props.mSToHours(currentRod.castingTime)}</p>
           </div>
           <div className={styles.displayItem}>
-            <p>Catches</p> <p>{props.currentSession.catches}</p>
+            <p>Casts</p>
+            <p>{currentRod.casts}</p>
           </div>
           <div className={styles.displayItem}>
-            <p>Bites</p> <p>{props.currentSession.bites}</p>
+            <p>Catches</p> <p>{currentRod.catches}</p>
+          </div>
+          <div className={styles.displayItem}>
+            <p>Bites</p> <p>{currentRod.bites}</p>
           </div>
         </div>
       </div>
@@ -69,15 +124,26 @@ function Session(props) {
           <ButtonGroup size="sm">
             <Button variant="secondary">All</Button>
             {props.currentSession.rods.map((rod, index) => (
-              <Button key={index} variant="secondary">{`Rod ${
-                index + 1
-              }`}</Button>
+              <Button
+                key={index}
+                variant={rod.currentCast.casting ? "success" : "secondary"}
+              >{`Rod ${index + 1}`}</Button>
             ))}
             <Button variant="primary">+</Button>
           </ButtonGroup>
         </div>
         <div className={styles.rodOptions}>
-          <DropdownButton as={ButtonGroup} variant="info" title="no bait">
+          <DropdownButton
+            as={ButtonGroup}
+            size="sm"
+            variant="info"
+            title={
+              currentRod.bait !== null
+                ? props.baits[currentRod.bait].name
+                : "NO BAIT"
+            }
+            disabled={currentRodIndex + 1 ? false : true}
+          >
             {props.baits.map((bait, index) =>
               bait !== null ? (
                 <Dropdown.Item key={index} eventKey={index}>
@@ -86,7 +152,17 @@ function Session(props) {
               ) : null
             )}
           </DropdownButton>
-          <DropdownButton as={ButtonGroup} variant="info" title="no style">
+          <DropdownButton
+            as={ButtonGroup}
+            size="sm"
+            variant="info"
+            title={
+              currentRod.style !== null
+                ? props.styles[currentRod.style].name
+                : "NO STYLE"
+            }
+            disabled={currentRodIndex + 1 ? false : true}
+          >
             {props.styles.map((style, index) =>
               style !== null ? (
                 <Dropdown.Item key={index} eventKey={index}>
@@ -97,9 +173,19 @@ function Session(props) {
           </DropdownButton>
         </div>
         <div className={styles.fishingControls}>
-          <Button className={styles.fullButton} variant="secondary">
-            CAST
-          </Button>
+          {currentRod.casting ? (
+            <Button className={styles.fullButton} variant="success">
+              FISH LANDED
+            </Button>
+          ) : (
+            <Button
+              className={styles.fullButton}
+              disabled={currentRod.casting === null ? true : false}
+              variant="secondary"
+            >
+              CAST
+            </Button>
+          )}
           <div className={styles.hBox}>
             <Button className={styles.halfButton} size="sm" variant="primary">
               BITE / RUN

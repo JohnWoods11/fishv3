@@ -1,3 +1,7 @@
+p {
+  font-size: small;
+}
+
 .container {
   height: 90vh;
   width: 100vw;

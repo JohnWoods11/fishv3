@@ -395,21 +395,25 @@ class App extends React.Component {
     let newCurrentSession = this.state.currentSession;
     newCurrentSession = {
       lakeIndex: lakeIndex,
+      startTime: 1000000000000,
       casts: 0,
       bites: 0,
       catches: 0,
       castingDuration: 0,
-      bait: null,
-      style: null,
       rods: [
         {
           name: "Rod 1",
+          casts: 0,
+          catches: 0,
+          bites: 0,
+          castTime: 1000000000000,
           currentCast: {
-            casting: false,
-            catchSuccess: null,
-            castTime: null,
+            casting: true,
+            catchSuccess: false,
             reelInTime: null,
-            bites: 0,
+            bait: 0,
+            style: null,
+            castingDuration: 0,
           },
         },
       ],
@@ -516,6 +520,7 @@ class App extends React.Component {
                   baits={this.state.baits}
                   styles={this.state.styles}
                   species={this.state.species}
+                  mSToHours={this.mSToHours}
                 ></Session>
               )}
             />
