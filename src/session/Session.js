@@ -42,7 +42,7 @@ function Session(props) {
     return <Redirect to="/fishv3/catch" />;
   };
 */
-  console.log(props.currentSession);
+  console.log(props.baits);
   return props.currentSession ? (
     <div className={styles.container}>
       <div className={styles.display}>
@@ -64,6 +64,53 @@ function Session(props) {
           </div>
         </div>
       </div>
+      <div className={styles.controls}>
+        <div className={styles.rods}>
+          <ButtonGroup size="sm">
+            <Button variant="secondary">All</Button>
+            {props.currentSession.rods.map((rod, index) => (
+              <Button key={index} variant="secondary">{`Rod ${
+                index + 1
+              }`}</Button>
+            ))}
+            <Button variant="primary">+</Button>
+          </ButtonGroup>
+        </div>
+        <div className={styles.rodOptions}>
+          <DropdownButton as={ButtonGroup} variant="info" title="no bait">
+            {props.baits.map((bait, index) =>
+              bait !== null ? (
+                <Dropdown.Item key={index} eventKey={index}>
+                  {bait.name}
+                </Dropdown.Item>
+              ) : null
+            )}
+          </DropdownButton>
+          <DropdownButton as={ButtonGroup} variant="info" title="no style">
+            {props.styles.map((style, index) =>
+              style !== null ? (
+                <Dropdown.Item key={index} eventKey={index}>
+                  {style.name}
+                </Dropdown.Item>
+              ) : null
+            )}
+          </DropdownButton>
+        </div>
+        <div className={styles.fishingControls}>
+          <Button className={styles.fullButton} variant="secondary">
+            CAST
+          </Button>
+          <div className={styles.hBox}>
+            <Button className={styles.halfButton} size="sm" variant="primary">
+              BITE / RUN
+            </Button>
+            <Button className={styles.halfButton} size="sm" variant="danger">
+              END SESSION
+            </Button>
+          </div>
+        </div>
+      </div>
+      <Button style={{ width: "80vw" }}>Back</Button>
     </div>
   ) : (
     <Redirect to="/fishv3/" />

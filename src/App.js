@@ -395,19 +395,24 @@ class App extends React.Component {
     let newCurrentSession = this.state.currentSession;
     newCurrentSession = {
       lakeIndex: lakeIndex,
-      casting: false,
       casts: 0,
       bites: 0,
       catches: 0,
       castingDuration: 0,
       bait: null,
       style: null,
-      currentCast: {
-        catchSuccess: null,
-        castTime: null,
-        reelInTime: null,
-        bites: 0,
-      },
+      rods: [
+        {
+          name: "Rod 1",
+          currentCast: {
+            casting: false,
+            catchSuccess: null,
+            castTime: null,
+            reelInTime: null,
+            bites: 0,
+          },
+        },
+      ],
       castHistory: [],
     };
     this.setState({ currentSession: newCurrentSession }, () => {

@@ -53,3 +53,56 @@
   justify-content: space-between;
   align-items: center;
 }
+
+.controls {
+  height: 35vh;
+  width: 100vw;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.rods {
+  height: 7vh;
+  width: 80vw;
+
+  display: flex;
+  flex-direction: row;
+  justify-content: start;
+}
+
+.rodOptions {
+  height: 7vh;
+  width: 80vw;
+
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+
+.fishingControls {
+  height: 20vh;
+  width: 80vw;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.hBox {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+
+.fullButton {
+  height: 9vh;
+  width: 80vw;
+}
+
+.halfButton {
+  height: 9vh;
+  width: 39vw;
+}
