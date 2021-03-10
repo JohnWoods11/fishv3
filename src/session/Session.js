@@ -50,10 +50,18 @@ function Session(props) {
           {props.lakes[props.currentSession.lakeIndex].name}
         </div>
         <div className={styles.castInfo}>
-          <p>{`Session time:`}</p>
-          <p>{`Current cast time:`}</p>
-          <p>{`Catches: ${props.currentSession.catches}`}</p>
-          <p>{`Bites: ${props.currentSession.bites}`}</p>
+          <div className={styles.displayItem}>
+            <p>Session time</p> <p>-time-</p>
+          </div>
+          <div className={styles.displayItem}>
+            <p>Current cast time</p> <p>-time-</p>
+          </div>
+          <div className={styles.displayItem}>
+            <p>Catches</p> <p>{props.currentSession.catches}</p>
+          </div>
+          <div className={styles.displayItem}>
+            <p>Bites</p> <p>{props.currentSession.bites}</p>
+          </div>
         </div>
       </div>
     </div>

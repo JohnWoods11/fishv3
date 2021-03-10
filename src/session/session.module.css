@@ -12,6 +12,11 @@
 .display {
   height: 40vh;
   width: 100vw;
+
+  display: flex;
+  flex-direction: column;
+
+  align-items: center;
 }
 
 .lakeName {
@@ -21,13 +26,30 @@
   font-size: large;
   font-weight: bolder;
 
-  text-align: center;
+  display: flex;
+
+  justify-content: center;
+  align-items: center;
 }
 
 .castInfo {
   height: 30vh;
-  width: 100vw;
+  width: 80vw;
+
+  box-sizing: border-box;
 
   display: flex;
   flex-direction: column;
+  justify-content: space-between;
+
+  padding: 2vw;
+  border: solid;
+  border-color: lightblue;
+}
+
+.displayItem {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
 }
