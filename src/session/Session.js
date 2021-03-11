@@ -67,12 +67,11 @@ function Session(props) {
     return rodsInWater;
   };
 
-  /*
   const endSession = () => {
     props.endSession();
     return <Redirect to="/fishv3/" />;
   };
-
+  /*
   const cast = () => {
     props.cast();
   };
@@ -231,6 +230,9 @@ function Session(props) {
                 disabled={rodsInWater().length ? true : false}
                 size="sm"
                 variant="danger"
+                onClick={() => {
+                  endSession();
+                }}
               >
                 END SESSION
               </Button>

@@ -27,10 +27,6 @@ function MainMenu(props) {
     setIsFishing(true);
   };
 
-  const toCurrentSession = () => {
-    return <Redirect to="/fishv3/session" />;
-  };
-
   const resetIsFishing = () => {
     setIsFishing(false);
   };
@@ -72,7 +68,6 @@ function MainMenu(props) {
             setCurrentVariable={props.setCurrentVariable}
             setLocation={props.setLocation}
             manualSetLocation={props.manualSetLocation}
-            toCurrentSession={toCurrentSession}
             currentSession={props.currentSession}
           ></LakeStats>
         </div>

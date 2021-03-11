@@ -365,8 +365,9 @@ class App extends React.Component {
           }`
         );
         if (
-          this.state.lakes[i].coordinates &&
-          time - this.state.lakes[i].weather.lastUpdated > 1800000
+          (this.state.lakes[i].coordinates &&
+            time - this.state.lakes[i].weather.lastUpdated > 1800000) ||
+          this.state.lakes[i].weather.data === undefined
         ) {
           console.log(`fetching ${i}`);
           this.setWeather(i);
@@ -391,6 +392,7 @@ class App extends React.Component {
     }
   };
 
+  //Session
   startSession = (lakeIndex) => {
     let newCurrentSession = this.state.currentSession;
     newCurrentSession = {
@@ -408,7 +410,7 @@ class App extends React.Component {
           bites: 0,
           castTime: 1000000000000,
           currentCast: {
-            casting: true,
+            casting: false,
             catchSuccess: false,
             reelInTime: null,
             bait: 3,
@@ -422,6 +424,20 @@ class App extends React.Component {
     this.setState({ currentSession: newCurrentSession }, () => {
       localStorage.setItem("app-data", JSON.stringify(this.state));
     });
+  };
+
+  endSession = () => {
+    let newCastHistory = [...this.state.castHistory];
+    newCastHistory.concat(this.state.currentSession.castHistory);
+    console.log(newCastHistory);
+    let newCurrentSession = this.state.currentSession;
+    newCurrentSession = null;
+    this.setState(
+      { castHistory: newCastHistory, currentSession: newCurrentSession },
+      () => {
+        localStorage.setItem("app-data", JSON.stringify(this.state));
+      }
+    );
   };
 
   render() {
@@ -521,6 +537,7 @@ class App extends React.Component {
                   styles={this.state.styles}
                   species={this.state.species}
                   mSToHours={this.mSToHours}
+                  endSession={this.endSession}
                 ></Session>
               )}
             />

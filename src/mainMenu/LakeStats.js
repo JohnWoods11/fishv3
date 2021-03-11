@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { Link } from "react-router-dom";
 import styles from "./lakeStats.module.css";
 import Button from "react-bootstrap/Button";
 import { Redirect } from "react-router-dom";
@@ -75,15 +76,23 @@ function LakeStats(props) {
             >
               Lake
             </Button>
-            <Button
-              className={styles.button}
-              variant="success"
-              onClick={() => {
-                props.fishLake();
-              }}
-            >
-              {!props.currentSession ? "Fish" : "Session"}
-            </Button>
+            {props.currentSession ? (
+              <Link to="/fishv3/session">
+                <Button className={styles.button} variant="success">
+                  Session
+                </Button>
+              </Link>
+            ) : (
+              <Button
+                className={styles.button}
+                variant="success"
+                onClick={() => {
+                  props.fishLake();
+                }}
+              >
+                Fish
+              </Button>
+            )}
           </div>
         </div>
       )}
