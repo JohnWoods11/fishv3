@@ -411,7 +411,7 @@ class App extends React.Component {
             casting: true,
             catchSuccess: false,
             reelInTime: null,
-            bait: 0,
+            bait: 3,
             style: null,
             castingDuration: 0,
           },

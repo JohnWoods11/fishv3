@@ -57,6 +57,16 @@ function Session(props) {
     }
   };
 
+  const rodsInWater = () => {
+    let rodsInWater = [];
+    for (const rod in props.currentSession.rods) {
+      if (props.currentSession.rods[rod].currentCast.casting) {
+        rodsInWater.push(rod);
+      }
+    }
+    return rodsInWater;
+  };
+
   /*
   const endSession = () => {
     props.endSession();
@@ -117,24 +127,35 @@ function Session(props) {
           <div className={styles.displayItem}>
             <p>Bites</p> <p>{currentRod.bites}</p>
           </div>
+          <div className={styles.rods}>
+            <ButtonGroup size="sm">
+              <Button
+                variant="secondary"
+                onClick={() => {
+                  setCurrentRodIndex(-1);
+                }}
+              >
+                All
+              </Button>
+              {props.currentSession.rods.map((rod, index) => (
+                <Button
+                  key={index}
+                  variant={rod.currentCast.casting ? "success" : "secondary"}
+                  onClick={() => {
+                    setCurrentRodIndex(index);
+                  }}
+                >{`Rod ${index + 1}`}</Button>
+              ))}
+              <Button variant="primary">+</Button>
+            </ButtonGroup>
+          </div>
         </div>
       </div>
       <div className={styles.controls}>
-        <div className={styles.rods}>
-          <ButtonGroup size="sm">
-            <Button variant="secondary">All</Button>
-            {props.currentSession.rods.map((rod, index) => (
-              <Button
-                key={index}
-                variant={rod.currentCast.casting ? "success" : "secondary"}
-              >{`Rod ${index + 1}`}</Button>
-            ))}
-            <Button variant="primary">+</Button>
-          </ButtonGroup>
-        </div>
         <div className={styles.rodOptions}>
           <DropdownButton
             as={ButtonGroup}
+            style={{ width: "39vw" }}
             size="sm"
             variant="info"
             title={
@@ -154,6 +175,7 @@ function Session(props) {
           </DropdownButton>
           <DropdownButton
             as={ButtonGroup}
+            style={{ width: "39vw" }}
             size="sm"
             variant="info"
             title={
@@ -187,12 +209,32 @@ function Session(props) {
             </Button>
           )}
           <div className={styles.hBox}>
-            <Button className={styles.halfButton} size="sm" variant="primary">
+            <Button
+              className={styles.halfButton}
+              disabled={currentRod.casting === null ? true : false}
+              size="sm"
+              variant="primary"
+            >
               BITE / RUN
             </Button>
-            <Button className={styles.halfButton} size="sm" variant="danger">
-              END SESSION
-            </Button>
+            {currentRod.casting ? (
+              <Button
+                className={styles.halfButton}
+                size="sm"
+                variant="secondary"
+              >
+                END CAST
+              </Button>
+            ) : (
+              <Button
+                className={styles.halfButton}
+                disabled={rodsInWater().length ? true : false}
+                size="sm"
+                variant="danger"
+              >
+                END SESSION
+              </Button>
+            )}
           </div>
         </div>
       </div>

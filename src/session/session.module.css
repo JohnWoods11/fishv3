@@ -37,7 +37,7 @@ p {
 }
 
 .castInfo {
-  height: 30vh;
+  height: 50vh;
   width: 80vw;
 
   box-sizing: border-box;
@@ -46,7 +46,6 @@ p {
   flex-direction: column;
   justify-content: space-between;
 
-  padding: 2vw;
   border: solid;
   border-color: lightblue;
 }
@@ -56,10 +55,12 @@ p {
   flex-direction: row;
   justify-content: space-between;
   align-items: center;
+  padding-left: 2vw;
+  padding-right: 2vw;
 }
 
 .controls {
-  height: 35vh;
+  height: 30vh;
   width: 100vw;
 
   display: flex;
@@ -70,11 +71,11 @@ p {
 
 .rods {
   height: 7vh;
-  width: 80vw;
+  width: 78vw;
 
   display: flex;
   flex-direction: row;
-  justify-content: start;
+  justify-content: left;
 }
 
 .rodOptions {
