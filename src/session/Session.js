@@ -26,7 +26,10 @@ function Session(props) {
         let nowMilli = now.getTime();
         rod.sessionTime = nowMilli - props.currentSession.startTime;
         rod.castingTime =
-          nowMilli - props.currentSession.rods[rodIndex].castTime;
+          props.currentSession.rods[rodIndex].currentCast.castTime === null
+            ? 0
+            : nowMilli -
+              props.currentSession.rods[rodIndex].currentCast.castTime;
         return rod;
       } else {
         let allRods = {
@@ -44,7 +47,9 @@ function Session(props) {
         allRods.sessionTime = nowMilli - props.currentSession.startTime;
         for (const rod in props.currentSession.rods) {
           allRods.castingTime +=
-            nowMilli - props.currentSession.rods[rod].castTime;
+            props.currentSession.rods[rod].currentCast.castTime === null
+              ? 0
+              : nowMilli - props.currentSession.rods[rod].currentCast.castTime;
           allRods.casts += props.currentSession.rods[rod].casts;
           allRods.catches += props.currentSession.rods[rod].catches;
           allRods.bites += props.currentSession.rods[rod].bites;
@@ -67,26 +72,27 @@ function Session(props) {
     return rodsInWater;
   };
 
+  const addRod = () => {
+    props.addRod();
+  };
+
   const endSession = () => {
     props.endSession();
     return <Redirect to="/fishv3/" />;
   };
-  /*
+
   const cast = () => {
-    props.cast();
+    props.cast(currentRodIndex);
+  };
+
+  const recordBite = () => {
+    props.recordBite(currentRodIndex);
   };
 
   const endCast = () => {
-    props.recordReelIn();
-    props.recordCatchFail();
-    props.endCast();
+    props.recordCatchFail(currentRodIndex);
   };
-
-  const addBite = () => {
-    if (props.currentSession.casting) {
-      props.addBite();
-    }
-  };
+  /*
 
   const changeBait = () => {
     props.changeBait(baitIndex);
@@ -110,11 +116,16 @@ function Session(props) {
         </div>
         <div className={styles.castInfo}>
           <div className={styles.displayItem}>
-            <p>Session time</p> <p>{props.mSToHours(currentRod.sessionTime)}</p>
+            <p>Session time</p>{" "}
+            <p>{props.mSToReadable(currentRod.sessionTime)}</p>
           </div>
           <div className={styles.displayItem}>
-            <p>Current cast time</p>{" "}
-            <p>{props.mSToHours(currentRod.castingTime)}</p>
+            <p>Current cast</p>{" "}
+            <p>
+              {currentRod.castingTime
+                ? props.mSToReadable(currentRod.castingTime)
+                : "--"}
+            </p>
           </div>
           <div className={styles.displayItem}>
             <p>Casts</p>
@@ -140,12 +151,22 @@ function Session(props) {
                 <Button
                   key={index}
                   variant={rod.currentCast.casting ? "success" : "secondary"}
+                  style={{ fontSize: "small" }}
                   onClick={() => {
                     setCurrentRodIndex(index);
                   }}
                 >{`Rod ${index + 1}`}</Button>
               ))}
-              <Button variant="primary">+</Button>
+              {props.currentSession.rods.length < 4 ? (
+                <Button
+                  variant="primary"
+                  onClick={() => {
+                    addRod();
+                  }}
+                >
+                  +
+                </Button>
+              ) : null}
             </ButtonGroup>
           </div>
         </div>
@@ -203,6 +224,9 @@ function Session(props) {
               className={styles.fullButton}
               disabled={currentRod.casting === null ? true : false}
               variant="secondary"
+              onClick={() => {
+                cast();
+              }}
             >
               CAST
             </Button>
@@ -213,6 +237,9 @@ function Session(props) {
               disabled={currentRod.casting === null ? true : false}
               size="sm"
               variant="primary"
+              onClick={() => {
+                recordBite();
+              }}
             >
               BITE / RUN
             </Button>
@@ -221,6 +248,9 @@ function Session(props) {
                 className={styles.halfButton}
                 size="sm"
                 variant="secondary"
+                onClick={() => {
+                  endCast();
+                }}
               >
                 END CAST
               </Button>

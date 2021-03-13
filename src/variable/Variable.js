@@ -32,7 +32,7 @@ function Variable(props) {
     if (props.variable.variableType === "lakes") {
       coordinates = props.lakes[props.variable.variableIndex].coordinates;
       if (coordinates !== null) {
-        mapAPIAddress = `https://www.mapquestapi.com/staticmap/v5/map?key=A7omwtwwpDrrpg4x1QDSeCTy8VutBoT4&center=${coordinates.latitude},${coordinates.longitude}&zoom=13&size=200,200&type=sat`;
+        mapAPIAddress = `https://www.mapquestapi.com/staticmap/v5/map?key=A7omwtwwpDrrpg4x1QDSeCTy8VutBoT4&center=${coordinates.latitude},${coordinates.longitude}&zoom=16&size=200,200&type=sat`;
       }
       variable = props.lakes[props.variable.variableIndex].lakes[0];
     } else

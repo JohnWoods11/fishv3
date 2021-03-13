@@ -395,9 +395,10 @@ class App extends React.Component {
   //Session
   startSession = (lakeIndex) => {
     let newCurrentSession = this.state.currentSession;
+    let now = new Date();
     newCurrentSession = {
       lakeIndex: lakeIndex,
-      startTime: 1000000000000,
+      startTime: now.getTime(),
       casts: 0,
       bites: 0,
       catches: 0,
@@ -408,11 +409,12 @@ class App extends React.Component {
           casts: 0,
           catches: 0,
           bites: 0,
-          castTime: 1000000000000,
           currentCast: {
+            castTime: null,
             casting: false,
             catchSuccess: false,
             reelInTime: null,
+            bites: 0,
             bait: 3,
             style: null,
             castingDuration: 0,
@@ -440,6 +442,72 @@ class App extends React.Component {
     );
   };
 
+  addRod = () => {
+    let newRod = {
+      name: `Rod ${this.state.currentSession.rods.length + 1}`,
+      casts: 0,
+      catches: 0,
+      bites: 0,
+      currentCast: {
+        castTime: null,
+        casting: false,
+        catchSuccess: false,
+        reelInTime: null,
+        bites: 0,
+        bait: 3,
+        style: null,
+        castingDuration: 0,
+      },
+    };
+    let newCurrentSession = this.state.currentSession;
+    newCurrentSession.rods.push(newRod);
+    this.setState({ currentSession: newCurrentSession }, () => {
+      localStorage.setItem("app-data", JSON.stringify(this.state));
+    });
+  };
+
+  cast = (rodIndex) => {
+    let newCurrentSession = this.state.currentSession;
+    let rod = newCurrentSession.rods[rodIndex];
+    rod.currentCast.casting = true;
+    let now = new Date();
+    rod.currentCast.castTime = now.getTime();
+    rod.casts++;
+    this.setState({ currentSession: newCurrentSession }, () => {
+      localStorage.setItem("app-data", JSON.stringify(this.state));
+    });
+  };
+
+  endCast = (rodIndex) => {
+    let newCurrentSession = this.state.currentSession;
+    let rod = newCurrentSession.rods[rodIndex].currentCast;
+    rod.casting = false;
+    rod.castTime = null;
+    rod.bites = 0;
+    rod.reelInTime = null;
+    rod.bites = 0;
+    rod.castingDuration = 0;
+    rod.catchSuccess = false;
+    this.setState({ currentCast: newCurrentSession }, () => {
+      localStorage.setItem("app-data", JSON.stringify(this.state));
+    });
+  };
+
+  recordBite = (rodIndex) => {
+    let newCurrentSession = this.state.currentSession;
+    let rod = newCurrentSession.rods[rodIndex];
+    rod.currentCast.bites++;
+    rod.bites++;
+    this.setState({ currentSession: newCurrentSession }, () => {
+      localStorage.setItem("app-data", JSON.stringify(this.state));
+    });
+  };
+
+  recordCatchFail = (rodIndex) => {
+    let cast = this.state.currentSession.currentCast;
+
+    this.endCast(rodIndex);
+  };
   render() {
     return (
       <div className={styles.app}>
@@ -536,8 +604,12 @@ class App extends React.Component {
                   baits={this.state.baits}
                   styles={this.state.styles}
                   species={this.state.species}
-                  mSToHours={this.mSToHours}
+                  mSToReadable={this.mSToReadable}
                   endSession={this.endSession}
+                  addRod={this.addRod}
+                  cast={this.cast}
+                  recordBite={this.recordBite}
+                  recordCatchFail={this.recordCatchFail}
                 ></Session>
               )}
             />
