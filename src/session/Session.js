@@ -78,7 +78,6 @@ function Session(props) {
 
   const endSession = () => {
     props.endSession();
-    return <Redirect to="/fishv3/" />;
   };
 
   const cast = () => {
@@ -92,6 +91,7 @@ function Session(props) {
   const endCast = () => {
     props.recordCatchFail(currentRodIndex);
   };
+
   /*
 
   const changeBait = () => {
@@ -234,7 +234,7 @@ function Session(props) {
           <div className={styles.hBox}>
             <Button
               className={styles.halfButton}
-              disabled={currentRod.casting === null ? true : false}
+              disabled={currentRod.casting ? false : true}
               size="sm"
               variant="primary"
               onClick={() => {
@@ -270,7 +270,9 @@ function Session(props) {
           </div>
         </div>
       </div>
-      <Button style={{ width: "80vw" }}>Back</Button>
+      <Link to="/fishv3/">
+        <Button style={{ width: "80vw" }}>Back</Button>{" "}
+      </Link>
     </div>
   ) : (
     <Redirect to="/fishv3/" />
