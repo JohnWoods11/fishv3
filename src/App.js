@@ -508,6 +508,23 @@ class App extends React.Component {
 
     this.endCast(rodIndex);
   };
+
+  changeBait = (rodIndex, baitIndex) => {
+    let newCurrentSession = this.state.currentSession;
+    newCurrentSession.rods[rodIndex].currentCast.bait = baitIndex;
+    this.setState({ currentSession: newCurrentSession }, () => {
+      localStorage.setItem("app-data", JSON.stringify(this.state));
+    });
+  };
+
+  changeStyle = (rodIndex, styleIndex) => {
+    let newCurrentSession = this.state.currentSession;
+    newCurrentSession.rods[rodIndex].currentCast.style = styleIndex;
+    this.setState({ currentSession: newCurrentSession }, () => {
+      localStorage.setItem("app-data", JSON.stringify(this.state));
+    });
+  };
+
   render() {
     return (
       <div className={styles.app}>
@@ -610,6 +627,8 @@ class App extends React.Component {
                   cast={this.cast}
                   recordBite={this.recordBite}
                   recordCatchFail={this.recordCatchFail}
+                  changeBait={this.changeBait}
+                  changeStyle={this.changeStyle}
                 ></Session>
               )}
             />

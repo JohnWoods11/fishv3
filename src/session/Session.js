@@ -92,16 +92,15 @@ function Session(props) {
     props.recordCatchFail(currentRodIndex);
   };
 
+  const changeBait = (baitIndex) => {
+    props.changeBait(currentRodIndex, baitIndex);
+  };
+
+  const changeStyle = (styleIndex) => {
+    props.changeStyle(currentRodIndex, styleIndex);
+  };
+
   /*
-
-  const changeBait = () => {
-    props.changeBait(baitIndex);
-  };
-
-  const changeStyle = () => {
-    props.changeStyle(styleIndex);
-  };
-
   const recordCatch = () => {
     props.recordReelIn();
     return <Redirect to="/fishv3/catch" />;
@@ -187,7 +186,13 @@ function Session(props) {
           >
             {props.baits.map((bait, index) =>
               bait !== null ? (
-                <Dropdown.Item key={index} eventKey={index}>
+                <Dropdown.Item
+                  key={index}
+                  eventKey={index}
+                  onClick={() => {
+                    changeBait(index);
+                  }}
+                >
                   {bait.name}
                 </Dropdown.Item>
               ) : null
@@ -207,7 +212,13 @@ function Session(props) {
           >
             {props.styles.map((style, index) =>
               style !== null ? (
-                <Dropdown.Item key={index} eventKey={index}>
+                <Dropdown.Item
+                  key={index}
+                  eventKey={index}
+                  onClick={() => {
+                    changeStyle(index);
+                  }}
+                >
                   {style.name}
                 </Dropdown.Item>
               ) : null
