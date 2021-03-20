@@ -37,15 +37,17 @@
 }
 
 .dashboardExtender {
-  height: 15vh;
+  height: 10vh;
   width: 100vw;
 
   background-color: #007bff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 
   color: aliceblue;
   font-weight: bolder;
-  font-size: large;
-  text-align: center;
+  font-size: xx-large;
 }
 
 .optionsWrapper {

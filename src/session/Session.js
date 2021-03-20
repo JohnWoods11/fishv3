@@ -89,7 +89,7 @@ function Session(props) {
   };
 
   const endCast = () => {
-    props.recordCatchFail(currentRodIndex);
+    props.recordCatchFail(currentRodIndex, props.currentSession.lakeIndex);
   };
 
   const changeBait = (baitIndex) => {
@@ -119,7 +119,7 @@ function Session(props) {
             <p>{props.mSToReadable(currentRod.sessionTime)}</p>
           </div>
           <div className={styles.displayItem}>
-            <p>Current cast</p>{" "}
+            {currentRodIndex + 1 ? <p>Current cast</p> : <p>Time in water</p>}{" "}
             <p>
               {currentRod.castingTime
                 ? props.mSToReadable(currentRod.castingTime)

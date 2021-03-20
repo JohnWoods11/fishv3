@@ -4,7 +4,6 @@ import styles from "./lakeStats.module.css";
 import Button from "react-bootstrap/Button";
 import { Redirect } from "react-router-dom";
 import TodaysWeather from "./weather/TodaysWeather";
-import CoordInput from "./CoordInput";
 
 function LakeStats(props) {
   const [toVariable, setToVariable] = useState(false);
@@ -13,8 +12,6 @@ function LakeStats(props) {
     props.setCurrentVariable(type, index);
     setToVariable(true);
   };
-
-  console.log(props.currentSession);
 
   return toVariable ? (
     <Redirect to="/fishv3/variable"></Redirect>
@@ -40,7 +37,7 @@ function LakeStats(props) {
                 <div className={styles.infoBody}>
                   <span role="img" aria-label="casts">
                     &#127907;
-                  </span>
+                  </span>{" "}
                   {props.lakes[props.lakeIndex].lakes[0].castIndexes.length}
                 </div>
                 <div className={styles.infoBody}>
@@ -54,7 +51,7 @@ function LakeStats(props) {
                 <div className={styles.infoBody}>
                   <span role="img" aria-label="heaviest catch">
                     &#9878;
-                  </span>
+                  </span>{" "}
                   {props.lakes[props.lakeIndex].lakes[0].heaviestCatch.weight}{" "}
                 </div>
               </div>

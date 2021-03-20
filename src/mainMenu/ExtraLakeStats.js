@@ -1,23 +1,12 @@
-import React, { useState } from "react";
+import React from "react";
 import styles from "./extraLakeStats.module.css";
-import Button from "react-bootstrap/Button";
 import DailyWeather from "./weather/DailyWeather";
 import BiHourlyWeather from "./weather/BiHourlyWeather";
-import { Redirect } from "react-router-dom";
 import Tabs from "react-bootstrap/Tabs";
 import Tab from "react-bootstrap/Tab";
 
 function ExtraLakeStats(props) {
-  const [toVariable, setToVariable] = useState(false);
-
-  const goToVar = (type, index) => {
-    props.setCurrentVariable(type, index);
-    setToVariable(true);
-  };
-
-  return toVariable ? (
-    <Redirect to="/fishv3/variable"></Redirect>
-  ) : (
+  return (
     <div className={styles.container}>
       {props.lakeIndex !== null ? (
         <div style={{ width: "100%" }}>

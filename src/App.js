@@ -37,10 +37,9 @@ class App extends React.Component {
         castHistory: devState.castHistory,
       });
     }
-    console.log(this.state.managerFilter);
     if (localStorage.getItem("app-data")) {
       let appData = JSON.parse(localStorage.getItem("app-data"));
-      console.log(appData);
+
       this.setState(
         {
           lakes: appData.lakes,
@@ -59,10 +58,14 @@ class App extends React.Component {
 
   getDefaultLake = () => {
     for (let index = 0; index < this.state.lakes.length; index++) {
+      console.log(this.state.lakes[index]);
       if (this.state.lakes[index] !== null) {
+        console.log(this.state.lakes[index]);
+
         return index;
       }
     }
+
     return null;
   };
 
@@ -356,20 +359,13 @@ class App extends React.Component {
   //update all lakes weather if 30+ mins old
   weatherRefresh = () => {
     let time = new Date().getTime();
-    console.log(time);
     for (let i = 0; i < this.state.lakes.length; i++) {
       if (this.state.lakes[i] !== null) {
-        console.log(
-          `${this.state.lakes[i].weather.lastUpdated}, ${
-            time - this.state.lakes[i].weather.lastUpdated > 1800000
-          }`
-        );
         if (
           (this.state.lakes[i].coordinates &&
             time - this.state.lakes[i].weather.lastUpdated > 1800000) ||
           this.state.lakes[i].weather.data === undefined
         ) {
-          console.log(`fetching ${i}`);
           this.setWeather(i);
         }
       }
@@ -415,10 +411,10 @@ class App extends React.Component {
             catchSuccess: false,
             reelInTime: null,
             bites: 0,
-            bait: 3,
+            bait: null,
             style: null,
-            castingDuration: 0,
           },
+          castHistory: [],
         },
       ],
       castHistory: [],
@@ -454,10 +450,11 @@ class App extends React.Component {
         catchSuccess: false,
         reelInTime: null,
         bites: 0,
-        bait: 3,
+        bait: null,
         style: null,
-        castingDuration: 0,
+        castDuration: 0,
       },
+      castHistory: [],
     };
     let newCurrentSession = this.state.currentSession;
     newCurrentSession.rods.push(newRod);
@@ -478,6 +475,11 @@ class App extends React.Component {
     });
   };
 
+  getReelInTime = () => {
+    let now = new Date();
+    return now.getTime();
+  };
+
   endCast = (rodIndex) => {
     let newCurrentSession = this.state.currentSession;
     let rod = newCurrentSession.rods[rodIndex].currentCast;
@@ -486,7 +488,7 @@ class App extends React.Component {
     rod.bites = 0;
     rod.reelInTime = null;
     rod.bites = 0;
-    rod.castingDuration = 0;
+    rod.castDuration = 0;
     rod.catchSuccess = false;
     this.setState({ currentCast: newCurrentSession }, () => {
       localStorage.setItem("app-data", JSON.stringify(this.state));
@@ -504,9 +506,26 @@ class App extends React.Component {
   };
 
   recordCatchFail = (rodIndex) => {
-    let cast = this.state.currentSession.currentCast;
-
-    this.endCast(rodIndex);
+    let newCurrentSession = this.state.currentSession;
+    let cast = this.state.currentSession.rods[rodIndex].currentCast;
+    let now = this.getReelInTime();
+    let castData = {
+      castTime: cast.castTime,
+      reelInTime: now,
+      bites: cast.bites,
+      bait: cast.bait,
+      style: cast.style,
+      catchSuccess: cast.catchSuccess,
+      lakeIndex: newCurrentSession.lakeIndex,
+      castDuration: now - cast.castTime,
+    };
+    console.log(cast);
+    newCurrentSession.rods[rodIndex].castHistory.push(castData);
+    this.setState({ currentSession: newCurrentSession }, () => {
+      localStorage.setItem("app-data", JSON.stringify(this.state));
+      this.endCast(rodIndex);
+      console.log(newCurrentSession.rods[rodIndex].castHistory);
+    });
   };
 
   changeBait = (rodIndex, baitIndex) => {

@@ -3,7 +3,7 @@ import styles from "./mainMenu.module.css";
 import LakeAccordion from "./LakeAccordion";
 import LakeStats from "./LakeStats";
 import Button from "react-bootstrap/Button";
-import { Link, Redirect } from "react-router-dom";
+import { Link } from "react-router-dom";
 import SessionDash from "./SessionDash";
 import ExtraLakeStats from "./ExtraLakeStats";
 
@@ -92,7 +92,7 @@ function MainMenu(props) {
             className={styles.dashboardExtender}
             onClick={() => setDashIsFullScreen(!dashIsFullScreen)}
           >
-            <p>Stats and Settings</p>
+            <p style={{ fontSize: "x-large" }}>Stats and Settings</p>
           </div>
           <div className={styles.buttonContainer}>
             <div className={styles.buttonInfoContainer}>
