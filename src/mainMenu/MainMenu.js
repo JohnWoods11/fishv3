@@ -3,25 +3,15 @@ import styles from "./mainMenu.module.css";
 import LakeAccordion from "./LakeAccordion";
 import LakeStats from "./LakeStats";
 import Button from "react-bootstrap/Button";
-import { Link } from "react-router-dom";
+import { Link, useHistory } from "react-router-dom";
 import SessionDash from "./SessionDash";
 import ExtraLakeStats from "./ExtraLakeStats";
 
 function MainMenu(props) {
-  const [lakeSelected, setLakeSelected] = useState(
-    props.currentVariable.variableType === "lakes"
-      ? props.currentVariable.variableIndex
-      : props.getDefaultLake()
-  );
+  const [lakeSelected, setLakeSelected] = useState(null);
+  const history = useHistory();
   const [isFishing, setIsFishing] = useState(false);
   const [dashIsFullScreen, setDashIsFullScreen] = useState(true);
-
-  console.log(
-    props.currentVariable.variableType,
-    props.getDefaultLake(),
-    lakeSelected,
-    "whats going on here?"
-  );
 
   const fishLake = (index) => {
     setIsFishing(true);
@@ -37,6 +27,17 @@ function MainMenu(props) {
     props.lakeWeatherRefresh(index);
   };
 
+  let my_selected_lake = lakeSelected;
+
+  if (my_selected_lake === null) {
+    my_selected_lake = props.getDefaultLake();
+  }
+
+  if (props.lakes === null || my_selected_lake >= props.lakes.length) {
+    my_selected_lake = null;
+    console.log("error: lakes === null or invalid index");
+  }
+
   return (
     <div className={styles.menuContainer}>
       {" "}
@@ -45,7 +46,7 @@ function MainMenu(props) {
           <SessionDash
             isFullScreen={dashIsFullScreen}
             lakes={props.lakes}
-            lakeIndex={lakeSelected}
+            lakeIndex={my_selected_lake}
             resetIsFishing={resetIsFishing}
             startSession={props.startSession}
           ></SessionDash>{" "}
@@ -56,13 +57,13 @@ function MainMenu(props) {
             className={styles.lakeAccordion}
             lakes={props.lakes}
             selectLake={selectLake}
-            currentIndex={lakeSelected}
+            currentIndex={my_selected_lake}
             addLake={props.addLake}
           ></LakeAccordion>
           <LakeStats
             className={styles.lakeStats}
             lakes={props.lakes}
-            lakeIndex={lakeSelected}
+            lakeIndex={my_selected_lake}
             fishLake={fishLake}
             mSToReadable={props.mSToReadable}
             setCurrentVariable={props.setCurrentVariable}
@@ -75,7 +76,7 @@ function MainMenu(props) {
       <div className={styles.extraStats}>
         <ExtraLakeStats
           lakes={props.lakes}
-          lakeIndex={lakeSelected}
+          lakeIndex={my_selected_lake}
           fishLake={fishLake}
           setCurrentVariable={props.setCurrentVariable}
         ></ExtraLakeStats>

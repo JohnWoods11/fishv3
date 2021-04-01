@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Link, Redirect } from "react-router-dom";
 import Button from "react-bootstrap/Button";
 import Dropdown from "react-bootstrap/Dropdown";
@@ -18,7 +18,7 @@ function Session(props) {
           casts: props.currentSession.rods[rodIndex].casts,
           catches: props.currentSession.rods[rodIndex].catches,
           bites: props.currentSession.rods[rodIndex].bites,
-          casting: props.currentSession.rods[rodIndex].currentCast.casting,
+          casting: props.currentSession.rods[rodIndex].casting,
           bait: props.currentSession.rods[rodIndex].currentCast.bait,
           style: props.currentSession.rods[rodIndex].currentCast.style,
         };
@@ -65,7 +65,7 @@ function Session(props) {
   const rodsInWater = () => {
     let rodsInWater = [];
     for (const rod in props.currentSession.rods) {
-      if (props.currentSession.rods[rod].currentCast.casting) {
+      if (props.currentSession.rods[rod].casting) {
         rodsInWater.push(rod);
       }
     }
@@ -89,7 +89,7 @@ function Session(props) {
   };
 
   const endCast = () => {
-    props.recordCatchFail(currentRodIndex, props.currentSession.lakeIndex);
+    props.recordCatchFail(currentRodIndex);
   };
 
   const changeBait = (baitIndex) => {
@@ -107,6 +107,7 @@ function Session(props) {
   };
 */
   let currentRod = getRod(currentRodIndex);
+
   return props.currentSession ? (
     <div className={styles.container}>
       <div className={styles.display}>
@@ -149,7 +150,7 @@ function Session(props) {
               {props.currentSession.rods.map((rod, index) => (
                 <Button
                   key={index}
-                  variant={rod.currentCast.casting ? "success" : "secondary"}
+                  variant={rod.casting ? "success" : "secondary"}
                   style={{ fontSize: "small" }}
                   onClick={() => {
                     setCurrentRodIndex(index);

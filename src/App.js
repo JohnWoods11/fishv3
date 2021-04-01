@@ -56,12 +56,29 @@ class App extends React.Component {
     }
   }
 
-  getDefaultLake = () => {
-    for (let index = 0; index < this.state.lakes.length; index++) {
-      console.log(this.state.lakes[index]);
-      if (this.state.lakes[index] !== null) {
-        console.log(this.state.lakes[index]);
+  isValidLake = (lake) => {
+    if (lake < 0 || lake > this.state.lakes.length) {
+      return false;
+    }
+    if (this.state.lakes[lake]) {
+      return true;
+    }
+    return false;
+  };
 
+  getDefaultLake = () => {
+    if (this.state.currentSession) {
+      if (this.isValidLake(this.state.currentSession.lakeIndex)) {
+        return this.state.currentSession.lakeIndex;
+      }
+    }
+    if (this.state.currentVariable.variableIndex !== undefined) {
+      if (this.isValidLake(this.state.currentVariable.variableIndex)) {
+        return this.state.currentVariable.variableIndex;
+      }
+    }
+    for (let index = 0; index < this.state.lakes.length; index++) {
+      if (this.isValidLake(index)) {
         return index;
       }
     }
@@ -361,6 +378,7 @@ class App extends React.Component {
     let time = new Date().getTime();
     for (let i = 0; i < this.state.lakes.length; i++) {
       if (this.state.lakes[i] !== null) {
+        console.log(this.state.lakes[i].weather.lastUpdated, "here");
         if (
           (this.state.lakes[i].coordinates &&
             time - this.state.lakes[i].weather.lastUpdated > 1800000) ||
@@ -407,7 +425,6 @@ class App extends React.Component {
           bites: 0,
           currentCast: {
             castTime: null,
-            casting: false,
             catchSuccess: false,
             reelInTime: null,
             bites: 0,
@@ -441,12 +458,12 @@ class App extends React.Component {
   addRod = () => {
     let newRod = {
       name: `Rod ${this.state.currentSession.rods.length + 1}`,
+      casting: false,
       casts: 0,
       catches: 0,
       bites: 0,
       currentCast: {
         castTime: null,
-        casting: false,
         catchSuccess: false,
         reelInTime: null,
         bites: 0,
@@ -466,7 +483,7 @@ class App extends React.Component {
   cast = (rodIndex) => {
     let newCurrentSession = this.state.currentSession;
     let rod = newCurrentSession.rods[rodIndex];
-    rod.currentCast.casting = true;
+    rod.casting = true;
     let now = new Date();
     rod.currentCast.castTime = now.getTime();
     rod.casts++;
@@ -482,14 +499,14 @@ class App extends React.Component {
 
   endCast = (rodIndex) => {
     let newCurrentSession = this.state.currentSession;
-    let rod = newCurrentSession.rods[rodIndex].currentCast;
+    let rod = newCurrentSession.rods[rodIndex];
     rod.casting = false;
-    rod.castTime = null;
-    rod.bites = 0;
-    rod.reelInTime = null;
-    rod.bites = 0;
-    rod.castDuration = 0;
-    rod.catchSuccess = false;
+    rod.currentCast.castTime = null;
+    rod.currentCast.bites = 0;
+    rod.currentCast.reelInTime = null;
+    rod.currentCast.bites = 0;
+    rod.currentCast.castDuration = 0;
+    rod.currentCast.catchSuccess = false;
     this.setState({ currentCast: newCurrentSession }, () => {
       localStorage.setItem("app-data", JSON.stringify(this.state));
     });
@@ -508,7 +525,9 @@ class App extends React.Component {
   recordCatchFail = (rodIndex) => {
     let newCurrentSession = this.state.currentSession;
     let cast = this.state.currentSession.rods[rodIndex].currentCast;
+    console.log(this.state.currentSession.rods[rodIndex]);
     let now = this.getReelInTime();
+    console.log(now);
     let castData = {
       castTime: cast.castTime,
       reelInTime: now,
@@ -519,7 +538,7 @@ class App extends React.Component {
       lakeIndex: newCurrentSession.lakeIndex,
       castDuration: now - cast.castTime,
     };
-    console.log(cast);
+    console.log(castData);
     newCurrentSession.rods[rodIndex].castHistory.push(castData);
     this.setState({ currentSession: newCurrentSession }, () => {
       localStorage.setItem("app-data", JSON.stringify(this.state));
