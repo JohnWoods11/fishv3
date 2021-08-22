@@ -18,3 +18,8 @@ Fincounter allows you to back up your fishing intuition with evidence. It create
 ### How does it work? 
 
 The app has very few dependencies, it uses react for rendering, react router for navigation and react bootstrap for styling. All the data is stored in local storage meaning the app works without a signal. Weather data is supplied by the open weather map API and satelite imagery from the mapquest API. Everthing else is HTML, Javascript and CSS written by yours truly.
+
+
+This is a work in progress but feel free to find the current iteration at: https://johnwoods11.github.io/fishv3/
+
+best viewed in developer mode as a mobile device
