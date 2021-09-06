@@ -1,25 +1,36 @@
 {
   "files": {
-    "main.css": "/fishv3/static/css/main.528d9233.chunk.css",
-    "main.js": "/fishv3/static/js/main.cd59bf76.chunk.js",
-    "main.js.map": "/fishv3/static/js/main.cd59bf76.chunk.js.map",
+    "main.css": "/fishv3/static/css/main.74dd8586.chunk.css",
+    "main.js": "/fishv3/static/js/main.19a5bac0.chunk.js",
+    "main.js.map": "/fishv3/static/js/main.19a5bac0.chunk.js.map",
     "runtime-main.js": "/fishv3/static/js/runtime-main.2bd15592.js",
     "runtime-main.js.map": "/fishv3/static/js/runtime-main.2bd15592.js.map",
     "static/css/2.af3c1da9.chunk.css": "/fishv3/static/css/2.af3c1da9.chunk.css",
-    "static/js/2.ebb4be24.chunk.js": "/fishv3/static/js/2.ebb4be24.chunk.js",
-    "static/js/2.ebb4be24.chunk.js.map": "/fishv3/static/js/2.ebb4be24.chunk.js.map",
+    "static/js/2.ce552959.chunk.js": "/fishv3/static/js/2.ce552959.chunk.js",
+    "static/js/2.ce552959.chunk.js.map": "/fishv3/static/js/2.ce552959.chunk.js.map",
     "index.html": "/fishv3/index.html",
-    "precache-manifest.6e5a4a00f16c171364691ea8f5f87ca8.js": "/fishv3/precache-manifest.6e5a4a00f16c171364691ea8f5f87ca8.js",
+    "precache-manifest.f59f148d1385985562e08c86a630e54b.js": "/fishv3/precache-manifest.f59f148d1385985562e08c86a630e54b.js",
     "service-worker.js": "/fishv3/service-worker.js",
     "static/css/2.af3c1da9.chunk.css.map": "/fishv3/static/css/2.af3c1da9.chunk.css.map",
-    "static/css/main.528d9233.chunk.css.map": "/fishv3/static/css/main.528d9233.chunk.css.map",
-    "static/js/2.ebb4be24.chunk.js.LICENSE.txt": "/fishv3/static/js/2.ebb4be24.chunk.js.LICENSE.txt"
+    "static/css/main.74dd8586.chunk.css.map": "/fishv3/static/css/main.74dd8586.chunk.css.map",
+    "static/js/2.ce552959.chunk.js.LICENSE.txt": "/fishv3/static/js/2.ce552959.chunk.js.LICENSE.txt",
+    "static/media/broken_cloud.svg": "/fishv3/static/media/broken_cloud.7eb0aaa9.svg",
+    "static/media/cloudy.svg": "/fishv3/static/media/cloudy.c297a69d.svg",
+    "static/media/light_cloud_day.svg": "/fishv3/static/media/light_cloud_day.3b376228.svg",
+    "static/media/light_cloud_night.svg": "/fishv3/static/media/light_cloud_night.57c71da3.svg",
+    "static/media/lightning.svg": "/fishv3/static/media/lightning.d3f8d010.svg",
+    "static/media/mist.svg": "/fishv3/static/media/mist.e75d8279.svg",
+    "static/media/night.svg": "/fishv3/static/media/night.7fc8c9ca.svg",
+    "static/media/rain.svg": "/fishv3/static/media/rain.72435381.svg",
+    "static/media/shower.svg": "/fishv3/static/media/shower.26322a64.svg",
+    "static/media/snow.svg": "/fishv3/static/media/snow.cb13ad44.svg",
+    "static/media/sunny.svg": "/fishv3/static/media/sunny.6f23afcf.svg"
   },
   "entrypoints": [
     "static/js/runtime-main.2bd15592.js",
     "static/css/2.af3c1da9.chunk.css",
-    "static/js/2.ebb4be24.chunk.js",
-    "static/css/main.528d9233.chunk.css",
-    "static/js/main.cd59bf76.chunk.js"
+    "static/js/2.ce552959.chunk.js",
+    "static/css/main.74dd8586.chunk.css",
+    "static/js/main.19a5bac0.chunk.js"
   ]
 }
