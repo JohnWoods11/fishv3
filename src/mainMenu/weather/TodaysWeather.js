@@ -3,14 +3,14 @@ import styles from "./todaysWeather.module.css";
 import getIcon from "./IconManager";
 
 function TodaysWeather(props) {
-  console.log(props.weather.data)
+  console.log(props)
   let today;
 
-  if (props.weather.data) {
+  if (props.weather) {
     today = props.weather.data.daily[0];
   }
 
-  return props.weather.data ? (
+  return props.weather ? (
     <div className={styles.day}>
       <div style={{ backgroundColor: "orange" }}>
         {Math.round(today.temp.day)}&deg;

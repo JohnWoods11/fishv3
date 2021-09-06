@@ -4,6 +4,7 @@ function DevData(castsWanted) {
   let lakes = [
     {
       name: "Holton",
+      coordinates: null,
       lakes: [
         {
           name: "Holton",
@@ -17,6 +18,7 @@ function DevData(castsWanted) {
     },
     {
       name: "Alderby",
+      coordinates: null,
       lakes: [
         {
           name: "Alderby",
@@ -30,6 +32,7 @@ function DevData(castsWanted) {
     },
     {
       name: "Henstead",
+      coordinates: null,
       lakes: [
         {
           name: "Henstead",
@@ -46,6 +49,7 @@ function DevData(castsWanted) {
       lakes: [
         {
           name: "Wisset",
+          coordinates: null,
           castIndexes: [],
           duration: 0,
           catches: 0,

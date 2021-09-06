@@ -11,13 +11,13 @@ function BiHourlyWeather(props) {
 
   let bihourly = [];
 
-  if (props.weather.data) {
+  if (props.weather) {
     for (let i = 0; i < 16; i += 2) {
       bihourly.push(props.weather.data.hourly[i]);
     }
   }
 
-  return props.weather.data ? (
+  return props.weather ? (
     <div className={styles.container}>
       {bihourly.map((hour, index) => (
         <div key={index} className={styles.hour}>
