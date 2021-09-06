@@ -21,4 +21,5 @@ The app has very few dependencies, it uses react for rendering, react router for
 
 
 Find the latest stable build at https://johnwoods11.github.io/fishv3/<br />
-Best viewed in mobile view with dev tools
+Best viewed in mobile view with dev tools<br />
+Clear local storage and reload if you run into a bug!
