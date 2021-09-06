@@ -4,7 +4,8 @@ function DevData(castsWanted) {
   let lakes = [
     {
       name: "Holton",
-      coordinates: null,
+      coordinates: { latitude: 52.341, longitude: 1.529 },
+      weather: { data: null, lastUpdated: null },
       lakes: [
         {
           name: "Holton",
@@ -18,7 +19,8 @@ function DevData(castsWanted) {
     },
     {
       name: "Alderby",
-      coordinates: null,
+      coordinates:  { latitude: 52.479, longitude: 1.592 },
+      weather: { data: null, lastUpdated: null },
       lakes: [
         {
           name: "Alderby",
@@ -32,7 +34,8 @@ function DevData(castsWanted) {
     },
     {
       name: "Henstead",
-      coordinates: null,
+      coordinates:  { latitude: 52.425, longitude: 1.636 },
+      weather: { data: null, lastUpdated: null },
       lakes: [
         {
           name: "Henstead",
@@ -46,6 +49,8 @@ function DevData(castsWanted) {
     },
     {
       name: "Wisset",
+      coordinates:  { latitude: 52.350, longitude: 1.460 },
+      weather: { data: null, lastUpdated: null },
       lakes: [
         {
           name: "Wisset",

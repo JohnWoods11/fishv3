@@ -6,11 +6,11 @@ function TodaysWeather(props) {
   console.log(props)
   let today;
 
-  if (props.weather) {
+  if (props.weather.data) {
     today = props.weather.data.daily[0];
   }
 
-  return props.weather ? (
+  return props.weather.data ? (
     <div className={styles.day}>
       <div style={{ backgroundColor: "orange" }}>
         {Math.round(today.temp.day)}&deg;

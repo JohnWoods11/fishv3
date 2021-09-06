@@ -41,7 +41,7 @@ class App extends React.Component {
   }
   componentDidMount() {
     if (!localStorage.getItem("app-data")) {
-      let devState = DevData(100000);
+      let devState = DevData(10000);
       console.log(devState);
       this.setState({
         lakes: devState.lakes,
@@ -372,6 +372,7 @@ class App extends React.Component {
     let currentDate = new Date();
     newLakes[lakeIndex].weather.data = weather;
     newLakes[lakeIndex].weather.lastUpdated = currentDate.getTime();
+    console.log(this.state)
     this.setState({ lakes: newLakes }, () => {
       localStorage.setItem("app-data", JSON.stringify(this.state));
     });

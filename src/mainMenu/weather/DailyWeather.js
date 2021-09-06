@@ -10,7 +10,7 @@ function DailyWeather(props) {
     return `${date.getUTCDate()}/${date.getUTCMonth() + 1}`;
   };
 
-  return props.weather ? (
+  return props.weather.data ? (
     <div className={styles.container}>
       {props.weather.data.daily.map((day, index) => (
         <div key={index} className={styles.day}>
