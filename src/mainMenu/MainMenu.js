@@ -29,9 +29,9 @@ function MainMenu(props) {
 
   let my_selected_lake = lakeSelected;
 
-  if (my_selected_lake === null) {
+ /*if (my_selected_lake === null) {
     my_selected_lake = props.getDefaultLake();
-  }
+  }*/
 
   if (props.lakes === null || my_selected_lake >= props.lakes.length) {
     my_selected_lake = null;

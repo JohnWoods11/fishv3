@@ -6,6 +6,7 @@ import Tabs from "react-bootstrap/Tabs";
 import Tab from "react-bootstrap/Tab";
 
 function ExtraLakeStats(props) {
+
   return (
     <div className={styles.container}>
       {props.lakeIndex !== null ? (

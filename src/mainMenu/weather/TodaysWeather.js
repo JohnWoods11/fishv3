@@ -3,6 +3,7 @@ import styles from "./todaysWeather.module.css";
 import getIcon from "./IconManager";
 
 function TodaysWeather(props) {
+  console.log(props.weather.data)
   let today;
 
   if (props.weather.data) {

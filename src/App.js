@@ -14,7 +14,21 @@ class App extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      lakes: [],
+      lakes: [{
+        name: "Lowestoft",
+        lakes: [
+          {
+            name: "lowestoft",
+            duration: 0,
+            catches: 0,
+            heaviestCatch: { weight: 0, species: null },
+            castIndexes: [],
+          },
+        ],
+        weather: { data: null, lastUpdated: null },
+        coordinates: null,
+      }
+      ],
       baits: [],
       styles: [],
       species: [],
