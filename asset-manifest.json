@@ -1,19 +1,19 @@
 {
   "files": {
-    "main.css": "/fishv3/static/css/main.74dd8586.chunk.css",
-    "main.js": "/fishv3/static/js/main.19a5bac0.chunk.js",
-    "main.js.map": "/fishv3/static/js/main.19a5bac0.chunk.js.map",
+    "main.css": "/fishv3/static/css/main.29095d84.chunk.css",
+    "main.js": "/fishv3/static/js/main.1ce859be.chunk.js",
+    "main.js.map": "/fishv3/static/js/main.1ce859be.chunk.js.map",
     "runtime-main.js": "/fishv3/static/js/runtime-main.2bd15592.js",
     "runtime-main.js.map": "/fishv3/static/js/runtime-main.2bd15592.js.map",
     "static/css/2.af3c1da9.chunk.css": "/fishv3/static/css/2.af3c1da9.chunk.css",
-    "static/js/2.ce552959.chunk.js": "/fishv3/static/js/2.ce552959.chunk.js",
-    "static/js/2.ce552959.chunk.js.map": "/fishv3/static/js/2.ce552959.chunk.js.map",
+    "static/js/2.acf70c8c.chunk.js": "/fishv3/static/js/2.acf70c8c.chunk.js",
+    "static/js/2.acf70c8c.chunk.js.map": "/fishv3/static/js/2.acf70c8c.chunk.js.map",
     "index.html": "/fishv3/index.html",
-    "precache-manifest.f59f148d1385985562e08c86a630e54b.js": "/fishv3/precache-manifest.f59f148d1385985562e08c86a630e54b.js",
+    "precache-manifest.6193bf875bb71a6828c392d604fba2f4.js": "/fishv3/precache-manifest.6193bf875bb71a6828c392d604fba2f4.js",
     "service-worker.js": "/fishv3/service-worker.js",
     "static/css/2.af3c1da9.chunk.css.map": "/fishv3/static/css/2.af3c1da9.chunk.css.map",
-    "static/css/main.74dd8586.chunk.css.map": "/fishv3/static/css/main.74dd8586.chunk.css.map",
-    "static/js/2.ce552959.chunk.js.LICENSE.txt": "/fishv3/static/js/2.ce552959.chunk.js.LICENSE.txt",
+    "static/css/main.29095d84.chunk.css.map": "/fishv3/static/css/main.29095d84.chunk.css.map",
+    "static/js/2.acf70c8c.chunk.js.LICENSE.txt": "/fishv3/static/js/2.acf70c8c.chunk.js.LICENSE.txt",
     "static/media/broken_cloud.svg": "/fishv3/static/media/broken_cloud.7eb0aaa9.svg",
     "static/media/cloudy.svg": "/fishv3/static/media/cloudy.c297a69d.svg",
     "static/media/light_cloud_day.svg": "/fishv3/static/media/light_cloud_day.3b376228.svg",
@@ -29,8 +29,8 @@
   "entrypoints": [
     "static/js/runtime-main.2bd15592.js",
     "static/css/2.af3c1da9.chunk.css",
-    "static/js/2.ce552959.chunk.js",
-    "static/css/main.74dd8586.chunk.css",
-    "static/js/main.19a5bac0.chunk.js"
+    "static/js/2.acf70c8c.chunk.js",
+    "static/css/main.29095d84.chunk.css",
+    "static/js/main.1ce859be.chunk.js"
   ]
 }
