@@ -131,8 +131,8 @@ function Variable(props) {
             {variable.heaviestCatch.weight === 0
               ? "NA"
               : `${variable.heaviestCatch.weight} ${variable.heaviestCatch.species}`}
-          </div>
-          <CoordInput coords={coordinates} setLocation={props.setLocation} manualSetLocation={props.manualSetLocation}></CoordInput>
+          </div> {props.variable.variableType === "lakes" ?
+            <CoordInput coords={coordinates} setLocation={props.setLocation} manualSetLocation={props.manualSetLocation}></CoordInput> : null}
         </div>
       </div>
       <div className={styles.timeInfo}>
