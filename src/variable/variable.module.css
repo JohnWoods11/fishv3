@@ -70,7 +70,7 @@
 .basicInfo {
   display: flex;
   flex-direction: column;
-  font-size: medium;
+  font-size: small;
   padding-left: 10vw;
 }
 

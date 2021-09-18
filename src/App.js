@@ -181,7 +181,7 @@ class App extends React.Component {
   };
 
   deleteVar = (property, index) => {
-    alert(`${property} + ${index}`);
+    alert(`delete ${property} + ${index}`);
     let updatedVariables = [...this.state[property]];
     updatedVariables[index] = null;
     this.setState({ [property]: updatedVariables }, () => {
@@ -328,7 +328,11 @@ class App extends React.Component {
 
   didCoordinatesUpdate(oldCoordinates, newCoordinates) {
     let coordinateUpdate = false;
-    if (
+    if (!oldCoordinates)
+    {
+      coordinateUpdate = true;
+      }
+    else if (
       oldCoordinates.latitude.toFixed(2) !==
         newCoordinates.latitude.toFixed(2) &&
       oldCoordinates.longitude.toFixed(2) !==
@@ -659,6 +663,8 @@ class App extends React.Component {
                   mSToReadable={this.mSToReadable}
                   mSToDate={this.mSToDate}
                   mSToHours={this.mSToHours}
+                  setLocation={this.setLocation}
+                  manualSetLocation={this.manualSetLocation}
                 ></Variable>
               )}
             ></Route>

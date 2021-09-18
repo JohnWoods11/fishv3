@@ -4,8 +4,9 @@ import styles from "./coordInput.module.css";
 
 function CoordInput(props) {
   const manualUpdate = () => {
-    let latitude = prompt("Latitude", props.coords.latitude);
-    let longitude = prompt("Longitude", props.coords.longitude);
+    console.log(props)
+    let latitude = prompt("Latitude", !props.coords ? "" : props.coords.latitude);
+    let longitude = prompt("Longitude", !props.coords ? "" : props.coords.longitude);
     console.log(`${latitude}, ${longitude}`);
     if (latitude === null || longitude === null) {
       return;

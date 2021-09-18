@@ -6,6 +6,7 @@ import TimeGraph from "./TimeGraph";
 import { Redirect } from "react-router-dom";
 import DayGraph from "./DayGraph";
 import CastList from "./CastList";
+import CoordInput from "../mainMenu/CoordInput";
 
 function Variable(props) {
   console.log(props.variable);
@@ -131,7 +132,7 @@ function Variable(props) {
               ? "NA"
               : `${variable.heaviestCatch.weight} ${variable.heaviestCatch.species}`}
           </div>
-          <div></div>
+          <CoordInput coords={coordinates} setLocation={props.setLocation} manualSetLocation={props.manualSetLocation}></CoordInput>
         </div>
       </div>
       <div className={styles.timeInfo}>
